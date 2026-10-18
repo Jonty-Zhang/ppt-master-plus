@@ -483,6 +483,9 @@ def embed_fonts(src: Path, dst: Path, *, extra_dirs: list[str], subset: bool,
                 zout.writestr(n, replaced.get(n, parts[n]))
             for n, data in new_parts.items():
                 zout.writestr(n, data)
+        umask = os.umask(0)
+        os.umask(umask)
+        os.chmod(tmp, 0o666 & ~umask)  # mkstemp creates 0600; give the deck ordinary file permissions
         os.replace(tmp, dst)
     finally:
         if os.path.exists(tmp):
