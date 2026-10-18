@@ -100,6 +100,7 @@ Load the planning core in one batch, plus the structured facts already in `<proj
 Read ${SKILL_DIR}/references/strategist.md
 Read ${SKILL_DIR}/references/plan-core.md
 Read ${SKILL_DIR}/references/canvas-formats.md
+Read ${SKILL_DIR}/references/user-preferences.md   # standing user layout preferences: annotations, size floors, sparse pages, backgrounds
 ```
 
 | Trigger | Additional Strategist reference |
@@ -226,6 +227,7 @@ Read ${SKILL_DIR}/references/executor-base.md              # REQUIRED core: exec
 Read ${SKILL_DIR}/references/shared-standards-core.md      # REQUIRED core: SVG contract + shared aesthetic/leading baseline
 Read ${SKILL_DIR}/references/semantic-svg.md               # REQUIRED core: semantic metadata boundary
 Read ${SKILL_DIR}/references/preset-shape-vocabulary.md    # REQUIRED core: complete 187-name preset vocabulary
+Read ${SKILL_DIR}/references/user-preferences.md          # REQUIRED: standing user layout preferences, checked before every page
 Read ${SKILL_DIR}/references/modes/<resolved-id>.md        # one preset id, or each `mode_references` id
 Read ${SKILL_DIR}/references/visual-styles/<resolved-id>.md # one preset id, or each `visual_style_references` id
 # Triggered modules — evaluate executor-base.md's routing table over the §IX roster before P01
@@ -363,9 +365,19 @@ Sound: the optional post-motion pass is [`animations.md`](../references/animatio
 
 **Success criterion**: the command exits 0 and produces `exports/<project_name>_<timestamp>.pptx`, `validation/<project_name>_<timestamp>.report.json` with `passed` or `passed-with-warnings`, and `validation/<project_name>_<timestamp>.trace.json` when `--conversion-trace` was enabled. The exporter itself requires the current matching `final` quality report and exits nonzero on a missing, unreadable, unsupported, non-final, blocking, stale, or unverifiable one. Read the compact `[POSTFLIGHT]` receipt (`status`, `quality_gate`, slide count, warning counts, paths), disclose material warnings, and never `cat` the full report on success. Retain the report path for a later `deck_motion` handoff; postflight proves the package, not a later MP4 audio track.
 
+#### Step 7.4 — Deliver
+
+After 7.3 and every post-export stage that still reads the working project (`generate-audio`, an explicitly triggered supporting stage), run [`deliver`](stages/deliver.md): embed the deck's installed fonts and replace the working project with one `<deck title>/` folder holding the final `.pptx` and a `制作文件/` folder of revision inputs.
+
+```bash
+python3 ${SKILL_DIR}/scripts/deliver.py pack <project_path> --title "<deck title>"
+```
+
+**Success criterion**: the `[DELIVER]` receipt names the delivery folder; report that folder and any face the `[EMBED]` receipt could not embed.
+
 ### Revision Round (delivered project)
 
-A delivered project that comes back with a change stays in this route; planning does not restart. Act at the owning layer. A wording change, an added condition, or a re-titled page edits the SVG, then its §IX block, `notes/total.md`, and every page that repeats the line (a chapter page's route, the contents page). A page inserted, dropped, or moved renumbers the roster first — files, footers, contents-page numbers, §IX blocks, `page_rhythm` / `page_visualizations` rows, `animations.json` keys, `notes/total.md` headings, same-deck hyperlink targets — then authors or removes the page; whatever the moved page carried moves with it: a Morph `from` names the new preceding page and a "next chapter" preview group follows its boundary. A deck-wide colour or family runs [`update_spec.py`](../scripts/docs/update_spec.md); derived tints, pages designed around the old value, and spec prose naming it are edited by hand; a generated image that painted the old accent does not follow, and regenerating it redraws the composition, so report it instead of regenerating unprompted; a hand-edited Chart/Table fallback is re-stamped before the gate. A renumbered roster first clears the per-page files under `notes/` and `svg_final/`, which 7.1 and 7.2 only write. Rerun the final quality gate (it compares §IX with `svg_output/`), `animation_config.py validate`, 7.1 when notes changed, 7.2, and 7.3; calibration, the early gate, and `verify-charts` return only when a type role, the first pages, or a chart's geometry changed. Earlier exports stay; the new ones carry their own timestamp.
+A delivered project that comes back with a change stays in this route; planning does not restart. A packed delivery folder is first restored with `deliver.py unpack` ([`deliver`](stages/deliver.md)), and the round ends with 7.4 under the same title. Act at the owning layer. A wording change, an added condition, or a re-titled page edits the SVG, then its §IX block, `notes/total.md`, and every page that repeats the line (a chapter page's route, the contents page). A page inserted, dropped, or moved renumbers the roster first — files, footers, contents-page numbers, §IX blocks, `page_rhythm` / `page_visualizations` rows, `animations.json` keys, `notes/total.md` headings, same-deck hyperlink targets — then authors or removes the page; whatever the moved page carried moves with it: a Morph `from` names the new preceding page and a "next chapter" preview group follows its boundary. A deck-wide colour or family runs [`update_spec.py`](../scripts/docs/update_spec.md); derived tints, pages designed around the old value, and spec prose naming it are edited by hand; a generated image that painted the old accent does not follow, and regenerating it redraws the composition, so report it instead of regenerating unprompted; a hand-edited Chart/Table fallback is re-stamped before the gate. A renumbered roster first clears the per-page files under `notes/` and `svg_final/`, which 7.1 and 7.2 only write. Rerun the final quality gate (it compares §IX with `svg_output/`), `animation_config.py validate`, 7.1 when notes changed, 7.2, 7.3, and 7.4; calibration, the early gate, and `verify-charts` return only when a type role, the first pages, or a chart's geometry changed. 7.4 replaces the delivered `.pptx` in place.
 
 ## ✅ Generate PPTX Complete
 
@@ -375,4 +387,4 @@ A delivered project that comes back with a change stays in this route; planning 
 - [x] Notes split when enabled; disabled exports used `--no-notes`
 - [x] `svg_final/` preview built
 - [x] Native PPTX published and postflight report written
-- [ ] **Next**: report the exported PPTX path; when the effective Narration Audio outcome in `design_spec.md §I` is enabled, run [`generate-audio`](stages/generate-audio.md); otherwise run a supporting post-export stage only on its explicit trigger
+- [ ] **Next**: when the effective Narration Audio outcome in `design_spec.md §I` is enabled, run [`generate-audio`](stages/generate-audio.md); run a supporting post-export stage only on its explicit trigger; then Step 7.4 [`deliver`](stages/deliver.md) and report the delivery folder path plus any face that could not be embedded

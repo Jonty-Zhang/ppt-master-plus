@@ -97,6 +97,7 @@ Read the planning-capability batch in one pass — a capability map, not a usage
 ```
 Read ${SKILL_DIR}/references/plan-core.md
 Read ${SKILL_DIR}/references/canvas-formats.md
+Read ${SKILL_DIR}/references/user-preferences.md   # standing user layout preferences
 Read ${SKILL_DIR}/references/modes/_index.md
 Read ${SKILL_DIR}/references/visual-styles/_index.md
 Read ${SKILL_DIR}/references/image-renderings/_index.md
@@ -167,7 +168,7 @@ Read ${SKILL_DIR}/templates/tables/table-vocabulary.md
 
 ## 3. Direct SVG Authoring
 
-Read the execution core together, never file by file: [`shared-standards-core.md`](../../references/shared-standards-core.md), [`executor-base.md`](../../references/executor-base.md), [`semantic-svg.md`](../../references/semantic-svg.md), and [`preset-shape-vocabulary.md`](../../references/preset-shape-vocabulary.md) (complete, before P01). Then evaluate `executor-base.md`'s routing table once over the frozen roster and read every triggered module in the same batch (the `Any image` row loads its four files together); installed Layout/Deck structure adds [`pptx-structure-interface.md`](../../references/pptx-structure-interface.md). Keep the selected mode/style files: a custom applies one basis under its behavior, synthesizes several by their contributions, or follows the behavior alone. Reread anything only after a known file change or context invalidation.
+Read the execution core together, never file by file: [`shared-standards-core.md`](../../references/shared-standards-core.md), [`executor-base.md`](../../references/executor-base.md), [`semantic-svg.md`](../../references/semantic-svg.md), [`preset-shape-vocabulary.md`](../../references/preset-shape-vocabulary.md) (complete, before P01), and [`user-preferences.md`](../../references/user-preferences.md) (standing user layout preferences, checked before every page). Then evaluate `executor-base.md`'s routing table once over the frozen roster and read every triggered module in the same batch (the `Any image` row loads its four files together); installed Layout/Deck structure adds [`pptx-structure-interface.md`](../../references/pptx-structure-interface.md). Keep the selected mode/style files: a custom applies one basis under its behavior, synthesizes several by their contributions, or follows the behavior alone. Reread anything only after a known file change or context invalidation.
 
 **How executor-base binds Quick**: exactly as it binds Default except its `Default only` items — the persisted-plan handoff in §2 / §2.1 and the export hand-off in §6 — which Quick's transient §2 anchors, own checker gates, and export below replace; the Default gate cadence in `generate-pptx.md` Step 6 does not apply. Conditional authorities load on its routing table (Chart/Table branches, native data, formula, hyperlink). Chart/Table reference and final information model are independent signals, and selection never makes an object native-ready. Explicit user/template requirements and the resolved style override compatible aesthetic defaults, never technical boundaries, carrier eligibility, or native capability discovery.
 
@@ -232,7 +233,13 @@ python3 ${SKILL_DIR}/scripts/svg_to_pptx.py <project_path> --quick-generate --no
 
 **On failure**: repair the owning SVG, resource, or capability input, rerun the checker, and export again — never create a Design Spec or lock.
 
-**Revision after delivery**: a Quick project that comes back with a change has no spec or lock to update — edit the owning SVG (and every page repeating the line), `notes/total.md`, and `animations.json` directly; a page inserted, dropped, or moved renumbers files, footers, contents-page numbers, `notes/total.md` headings, sidecar keys, same-deck hyperlink targets, and each Morph `from` first; a deck-wide colour or family is substituted by hand across `svg_output/` (`update_spec.py` reads a lock); a generated image that painted the old accent does not follow, and regenerating it redraws the composition, so report it instead of regenerating unprompted. Then rerun the same final check, the notes split when notes changed, `animation_config.py validate`, and the export; earlier exports stay. When Narration Audio is enabled, run [`generate-audio`](../stages/generate-audio.md) after the validated export (page audio/SRT, narrated PPTX, optional raw MP4, final mixed or captured MP4, or the capture-ready handoff).
+**Deliver**: after the export and any `generate-audio` pass, run [`deliver`](../stages/deliver.md) — fonts embedded, the working project replaced by one `<deck title>/` folder with the final `.pptx` and `制作文件/` (pass `--pptx` when the deck was exported with `-o`):
+
+```bash
+python3 ${SKILL_DIR}/scripts/deliver.py pack <project_path> --title "<deck title>"
+```
+
+**Revision after delivery**: a packed delivery folder is first restored with `deliver.py unpack`; the round ends with `deliver.py pack` under the same title, which replaces the `.pptx` in place. A Quick project that comes back with a change has no spec or lock to update — edit the owning SVG (and every page repeating the line), `notes/total.md`, and `animations.json` directly; a page inserted, dropped, or moved renumbers files, footers, contents-page numbers, `notes/total.md` headings, sidecar keys, same-deck hyperlink targets, and each Morph `from` first; a deck-wide colour or family is substituted by hand across `svg_output/` (`update_spec.py` reads a lock); a generated image that painted the old accent does not follow, and regenerating it redraws the composition, so report it instead of regenerating unprompted. Then rerun the same final check, the notes split when notes changed, `animation_config.py validate`, the export, and the deliver pack. When Narration Audio is enabled, run [`generate-audio`](../stages/generate-audio.md) after the validated export (page audio/SRT, narrated PPTX, optional raw MP4, final mixed or captured MP4, or the capture-ready handoff).
 
 ```markdown
 ## ✅ Quick Generate Complete
@@ -246,5 +253,6 @@ python3 ${SKILL_DIR}/scripts/svg_to_pptx.py <project_path> --quick-generate --no
 - [x] The carrier receipt was compared with the retained page jobs and contradictions repaired; the lockless final report passes and matches the current SVGs
 - [x] The §1 motion gate was evaluated before P01 (the row hit, or none); enabled notes were validated/generated and split; enabled custom motion ran through its owning stage
 - [x] One native PPTX exists under `exports/` or the explicit output path; no Strategist, confirmation, root Design Spec, or lock artifact was created
-- [ ] **Next**: report the base PPTX and any narrated PPTX, MP4, or capture-ready handoff, plus the resolved mode, visual style, and image sources actually used; for every no-AI replan, report the affected job, attempted path, concrete error, replacement carrier, and that retaining AI imagery requires repairing generation capability and a new Quick run
+- [x] Delivered with `deliver.py pack`: fonts embedded, one `<deck title>/` folder with the `.pptx` and `制作文件/`
+- [ ] **Next**: report the delivery folder, any face that could not be embedded, and any narrated PPTX, MP4, or capture-ready handoff, plus the resolved mode, visual style, and image sources actually used; for every no-AI replan, report the affected job, attempted path, concrete error, replacement carrier, and that retaining AI imagery requires repairing generation capability and a new Quick run
 ```
