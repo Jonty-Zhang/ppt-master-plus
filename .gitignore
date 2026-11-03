@@ -127,6 +127,8 @@ __pycache__/
 .Python
 env/
 venv/
+.venv/
+.tmp/
 ENV/
 build/
 develop-eggs/
@@ -189,3 +191,6 @@ projects/*
 skills/ppt-master/templates/brands/*/exports/
 skills/ppt-master/templates/decks/*/exports/
 skills/ppt-master/templates/layouts/*/exports/
+examples/morph_demo/exports/
+examples/morph_demo/backup/
+examples/morph_demo/validation/

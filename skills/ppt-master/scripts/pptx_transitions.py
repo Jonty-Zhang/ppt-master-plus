@@ -869,6 +869,8 @@ TRANSITION_ALIASES: dict[str, str] = {
     "pull": "uncover",
     "wedge": "clock",
     "wheel": "clock",
+    "smooth": "morph",
+    "平滑": "morph",
 }
 LEGACY_TRANSITION_KEYS = tuple(TRANSITION_ALIASES)
 TRANSITION_ALIAS_OPTIONS: dict[str, dict[str, object]] = {
@@ -1012,6 +1014,11 @@ def normalize_transition_effect(effect: object, *, allow_none: bool = True) -> s
         raise ValueError(f"transition effect must be a string: {effect!r}")
     if effect in TRANSITION_ALIASES:
         return TRANSITION_ALIASES[effect]
+    lowered = effect.lower()
+    if lowered in TRANSITION_ALIASES:
+        return TRANSITION_ALIASES[lowered]
+    if lowered in NATIVE_TRANSITIONS:
+        return lowered
     if effect in NATIVE_TRANSITIONS:
         return effect
     valid = ", ".join((*NATIVE_TRANSITION_KEYS, *LEGACY_TRANSITION_KEYS))

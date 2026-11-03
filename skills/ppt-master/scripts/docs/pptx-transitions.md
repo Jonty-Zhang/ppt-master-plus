@@ -57,9 +57,7 @@ The native registry covers the complete current PowerPoint transition gallery:
 selection, sidecars, plans, conversion traces, help, and writers use only these
 48 native keys.
 
-Eight established low-level names remain valid at input boundaries. They
-normalize to one native effect plus native `effect_options`; they are not a
-second transition registry:
+Accepted compatibility and localized names remain valid at input boundaries (CLI `-t` and sidecar JSON). They normalize to one native effect plus native `effect_options`; they are not a second transition registry.
 
 | Compatibility input | Native request |
 |---|---|
@@ -71,6 +69,8 @@ second transition registry:
 | `pull` | `uncover` |
 | `wedge` | `clock` with `style: wedge` |
 | `wheel` | `clock` with `style: clockwise` |
+| `smooth` | `morph` with `morph_by: object` |
+| `平滑` | `morph` with `morph_by: object` |
 
 Standard PresentationML effects use a direct `p:transition` carrier:
 

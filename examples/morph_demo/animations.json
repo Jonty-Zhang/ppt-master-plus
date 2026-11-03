@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "slides": {
+    "01_overview": {
+      "transition": {
+        "effect": "fade",
+        "duration": 0.4
+      }
+    },
+    "02_focus": {
+      "transition": {
+        "effect": "平滑",
+        "duration": 0.8
+      },
+      "morph": {
+        "from": "01_overview",
+        "pairs": {
+          "hero-card": {
+            "from": "hero-card",
+            "to": "hero-card"
+          },
+          "status-badge": {
+            "from": "status-badge",
+            "to": "status-badge"
+          }
+        }
+      }
+    },
+    "03_summary": {
+      "transition": {
+        "effect": "smooth",
+        "duration": 0.8
+      },
+      "morph": {
+        "from": "02_focus",
+        "pairs": {
+          "hero-card": {
+            "from": "hero-card",
+            "to": "hero-card"
+          },
+          "status-badge": {
+            "from": "status-badge",
+            "to": "status-badge"
+          }
+        }
+      }
+    }
+  }
+}
