@@ -3,7 +3,7 @@
   <g id="header-title" data-pptx-bounds="120 40 760 50">
     <text id="page-title" x="120" y="75" fill="#F8FAFC" font-size="34" font-weight="bold">原生平滑过渡演进 (3/3: 汇总落地)</text>
   </g>
-  
+
   <g id="status-badge" data-pptx-bounds="940 45 180 36">
     <rect x="940" y="45" width="180" height="36" rx="18" fill="#F59E0B"/>
     <text x="1030" y="68" fill="#FFFFFF" font-size="14" font-weight="bold" text-anchor="middle">状态：已完成就绪</text>
