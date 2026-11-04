@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" lang="en-US" font-family="Segoe UI, sans-serif" data-pptx-page-role="content">
+  <rect id="slide-bg" x="0" y="0" width="1280" height="720" fill="#F8FAFC" data-pptx-role="background"/>
+
+  <!-- Persistent Navigation Track -->
+  <g id="nav-track" data-pptx-role="chrome" data-pptx-bounds="190 40 900 56">
+    <rect x="190" y="40" width="900" height="56" rx="28" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1"/>
+  </g>
+
+  <!-- Autonomous Moving Highlight Pill (paired via animations.json) -->
+  <g id="highlight-pill" data-pptx-role="decoration" data-pptx-bounds="644 44 216 48">
+    <rect x="644" y="44" width="216" height="48" rx="24" fill="#FFFFFF" stroke="#3B82F6" stroke-width="2"/>
+  </g>
+
+  <!-- Static Navigation Tabs (fixed coordinates and typography across all scenes) -->
+  <a href="#slide-1">
+    <g id="nav-tab-1" data-pptx-role="chrome" data-pptx-bounds="196 44 216 48">
+      <rect x="196" y="44" width="216" height="48" rx="24" fill="#FFFFFF" fill-opacity="0"/>
+      <text x="304" y="74" text-anchor="middle" font-size="16" font-weight="600" fill="#0F172A">Overview</text>
+    </g>
+  </a>
+  <a href="#slide-2">
+    <g id="nav-tab-2" data-pptx-role="chrome" data-pptx-bounds="420 44 216 48">
+      <rect x="420" y="44" width="216" height="48" rx="24" fill="#FFFFFF" fill-opacity="0"/>
+      <text x="528" y="74" text-anchor="middle" font-size="16" font-weight="600" fill="#0F172A">Features</text>
+    </g>
+  </a>
+  <a href="#slide-3">
+    <g id="nav-tab-3" data-pptx-role="chrome" data-pptx-bounds="644 44 216 48">
+      <rect x="644" y="44" width="216" height="48" rx="24" fill="#FFFFFF" fill-opacity="0"/>
+      <text x="752" y="74" text-anchor="middle" font-size="16" font-weight="600" fill="#0F172A">Architecture</text>
+    </g>
+  </a>
+  <a href="#slide-4">
+    <g id="nav-tab-4" data-pptx-role="chrome" data-pptx-bounds="868 44 216 48">
+      <rect x="868" y="44" width="216" height="48" rx="24" fill="#FFFFFF" fill-opacity="0"/>
+      <text x="976" y="74" text-anchor="middle" font-size="16" font-weight="600" fill="#0F172A">Roadmap</text>
+    </g>
+  </a>
+
+  <!-- Slide Content -->
+  <g id="page-header" data-pptx-bounds="100 130 1080 80">
+    <text x="100" y="162" font-size="28" font-weight="700" fill="#0F172A">System Layer Architecture</text>
+    <text x="100" y="194" font-size="16" font-weight="400" fill="#64748B">Three-tier decoupled visual hierarchy separating persistent chrome from motion carriers</text>
+  </g>
+
+  <g id="arch-tier-1" data-pptx-bounds="100 240 1080 115">
+    <rect x="100" y="240" width="1080" height="115" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <rect x="124" y="260" width="36" height="36" rx="8" fill="#EFF6FF"/>
+    <text x="142" y="284" text-anchor="middle" font-size="16" font-weight="700" fill="#2563EB">L1</text>
+    <text x="180" y="282" font-size="18" font-weight="700" fill="#0F172A">Layer 1: Viewport &amp; Canvas Framing</text>
+    <text x="180" y="318" font-size="14" font-weight="400" fill="#64748B">Full-bleed 1280x720 canvas rect and persistent navigation track maintain global layout stability across transitions.</text>
+  </g>
+
+  <g id="arch-tier-2" data-pptx-bounds="100 375 1080 115">
+    <rect x="100" y="375" width="1080" height="115" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <rect x="124" y="395" width="36" height="36" rx="8" fill="#F0FDF4"/>
+    <text x="142" y="419" text-anchor="middle" font-size="16" font-weight="700" fill="#16A34A">L2</text>
+    <text x="180" y="417" font-size="18" font-weight="700" fill="#0F172A">Layer 2: Autonomous Motion Carrier</text>
+    <text x="180" y="453" font-size="14" font-weight="400" fill="#64748B">A dedicated highlight pill moves along the X-axis via PowerPoint forced !!nav-highlight Morph pairing.</text>
+  </g>
+
+  <g id="arch-tier-3" data-pptx-bounds="100 510 1080 115">
+    <rect x="100" y="510" width="1080" height="115" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <rect x="124" y="530" width="36" height="36" rx="8" fill="#FAF5FF"/>
+    <text x="142" y="554" text-anchor="middle" font-size="16" font-weight="700" fill="#9333EA">L3</text>
+    <text x="180" y="552" font-size="18" font-weight="700" fill="#0F172A">Layer 3: Interactive Hit Targets &amp; Typography</text>
+    <text x="180" y="588" font-size="14" font-weight="400" fill="#64748B">Fixed hyperlink anchor groups overlay the carrier, capturing slide jump clicks without inheriting position transforms.</text>
+  </g>
+</svg>
