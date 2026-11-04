@@ -869,6 +869,8 @@ TRANSITION_ALIASES: dict[str, str] = {
     "pull": "uncover",
     "wedge": "clock",
     "wheel": "clock",
+    "smooth": "morph",
+    "平滑": "morph",
 }
 LEGACY_TRANSITION_KEYS = tuple(TRANSITION_ALIASES)
 TRANSITION_ALIAS_OPTIONS: dict[str, dict[str, object]] = {
@@ -1004,16 +1006,17 @@ def validate_seconds(
 
 def normalize_transition_effect(effect: object, *, allow_none: bool = True) -> str | None:
     """Return one canonical PowerPoint transition or explicit no-effect."""
-    if effect is None or effect == "none":
+    if effect is None or (isinstance(effect, str) and effect.lower() == "none"):
         if allow_none:
             return None
         raise ValueError("transition effect is required")
     if not isinstance(effect, str):
         raise ValueError(f"transition effect must be a string: {effect!r}")
-    if effect in TRANSITION_ALIASES:
-        return TRANSITION_ALIASES[effect]
-    if effect in NATIVE_TRANSITIONS:
-        return effect
+    key = effect.lower()
+    if key in TRANSITION_ALIASES:
+        return TRANSITION_ALIASES[key]
+    if key in NATIVE_TRANSITIONS:
+        return key
     valid = ", ".join((*NATIVE_TRANSITION_KEYS, *LEGACY_TRANSITION_KEYS))
     raise ValueError(
         f"unknown transition effect {effect!r}; valid effects: {valid}, none"
@@ -1081,7 +1084,7 @@ def normalize_transition_effect_request(
     raw_effect = effect
     canonical = normalize_transition_effect(effect, allow_none=allow_none)
     alias_options = (
-        TRANSITION_ALIAS_OPTIONS.get(raw_effect, {})
+        TRANSITION_ALIAS_OPTIONS.get(raw_effect.lower(), {})
         if isinstance(raw_effect, str)
         else {}
     )
@@ -1132,7 +1135,7 @@ def describe_transition_effect(effect: object) -> dict[str, Any]:
         "category": NATIVE_TRANSITIONS[canonical]["category"],
         "compatibility_alias": (
             effect
-            if isinstance(effect, str) and effect in TRANSITION_ALIASES
+            if isinstance(effect, str) and effect.lower() in TRANSITION_ALIASES
             else None
         ),
         "implied_effect_options": implied_options,

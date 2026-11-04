@@ -7596,6 +7596,12 @@ def create_pptx_with_native_svg(
                             image_quality=image_quality,
                             native_objects=native_objects,
                             animation_group_overrides=converter_group_overrides,
+                            morph_group_ids=frozenset(
+                                morph_group_overrides_by_slide.get(
+                                    svg_path.stem,
+                                    set(),
+                                )
+                            ),
                             theme_font_spec=active_theme_font_spec,
                             theme_color_spec=active_theme_color_spec,
                             primary_language=primary_language,

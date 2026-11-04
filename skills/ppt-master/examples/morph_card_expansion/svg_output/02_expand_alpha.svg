@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" lang="en-US" font-family="Segoe UI, sans-serif" data-pptx-page-role="content">
+  <rect id="slide-bg" x="0" y="0" width="1280" height="720" fill="#F8FAFC" data-pptx-role="background"/>
+
+  <!-- Page Header (Top anchored) -->
+  <g id="page-header" data-pptx-bounds="80 36 1120 70">
+    <text x="80" y="62" font-size="26" font-weight="700" fill="#0F172A">Cloud-Native Infrastructure &amp; Service Mesh</text>
+    <text x="80" y="88" font-size="14" font-weight="400" fill="#64748B">Explore the gateway architecture, telemetry, and topology</text>
+  </g>
+
+  <!-- Expanded Modal Card Alpha: Carrier Frame (Pure decoration surface, paired across slides for geometric expansion) -->
+  <g id="card-alpha" data-pptx-role="decoration" data-pptx-bounds="50 100 1180 590">
+    <rect x="50" y="100" width="1180" height="590" rx="20" fill="#FFFFFF" stroke="#3B82F6" stroke-width="2.5"/>
+  </g>
+
+  <!-- Expanded Modal Card Alpha: Identity Title (Stable text group, matched font size & string, spatial translation) -->
+  <g id="title-alpha" data-pptx-bounds="264 130 290 30">
+    <text x="264" y="150" font-size="22" font-weight="700" fill="#0F172A">API Ingress Gateway</text>
+  </g>
+  <g id="title-alpha-badge" data-pptx-bounds="85 125 164 48">
+    <rect x="85" y="125" width="48" height="48" rx="12" fill="#EFF6FF"/>
+    <text x="109" y="156" text-anchor="middle" font-size="18" font-weight="700" fill="#2563EB">GW</text>
+    <rect x="145" y="133" width="104" height="26" rx="6" fill="#F1F5F9"/>
+    <text x="197" y="150" text-anchor="middle" font-size="11" font-weight="600" fill="#475569">Edge Gateway</text>
+  </g>
+  <g id="title-alpha-caption" data-pptx-bounds="264 162 290 22">
+    <text x="264" y="178" font-size="13" font-weight="500" fill="#2563EB">Tier-0 Mission Critical Ingress</text>
+  </g>
+
+  <!-- Expanded Modal Card Alpha: Detailed Multi-Column Body (Independent page-local content, native cross-fade in-place) -->
+  <g id="detail-alpha" data-pptx-bounds="85 210 1110 370">
+    <!-- Left Column: Architectural Specifications -->
+    <text x="85" y="226" font-size="14" font-weight="600" fill="#0F172A">Traffic Routing &amp; Edge Security Controls</text>
+    <text x="85" y="254" font-size="13" font-weight="400" fill="#64748B">
+      <tspan x="85" dy="0">Direct edge termination for incoming client traffic with</tspan>
+      <tspan x="85" dy="22">automated policy enforcement before mesh handoff.</tspan>
+    </text>
+
+    <rect x="85" y="300" width="22" height="22" rx="6" fill="#EFF6FF"/>
+    <text x="96" y="315" text-anchor="middle" font-size="12" font-weight="700" fill="#2563EB">&#x2713;</text>
+    <text x="116" y="316" font-size="13" font-weight="600" fill="#0F172A">TLS 1.3 Termination &amp; Automated Cert Rotation</text>
+
+    <rect x="85" y="335" width="22" height="22" rx="6" fill="#EFF6FF"/>
+    <text x="96" y="350" text-anchor="middle" font-size="12" font-weight="700" fill="#2563EB">&#x2713;</text>
+    <text x="116" y="351" font-size="13" font-weight="600" fill="#0F172A">Token Bucket Rate Limiting (100K bursts/sec)</text>
+
+    <rect x="85" y="370" width="22" height="22" rx="6" fill="#EFF6FF"/>
+    <text x="96" y="385" text-anchor="middle" font-size="12" font-weight="700" fill="#2563EB">&#x2713;</text>
+    <text x="116" y="386" font-size="13" font-weight="600" fill="#0F172A">HTTP/3 QUIC Protocol Acceleration</text>
+
+    <rect x="85" y="405" width="22" height="22" rx="6" fill="#EFF6FF"/>
+    <text x="96" y="420" text-anchor="middle" font-size="12" font-weight="700" fill="#2563EB">&#x2713;</text>
+    <text x="116" y="421" font-size="13" font-weight="600" fill="#0F172A">W3C Distributed Trace Context Injection</text>
+
+    <!-- Telemetry Card in Modal -->
+    <rect x="85" y="450" width="340" height="110" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+    <text x="105" y="495" font-size="34" font-weight="800" fill="#2563EB">48,250 rps</text>
+    <text x="105" y="522" font-size="13" font-weight="600" fill="#0F172A">Current Ingress Peak Traffic</text>
+    <text x="105" y="542" font-size="12" font-weight="400" fill="#64748B">Zero packet drop over 30-day evaluation period</text>
+
+    <!-- Middle Column: Edge Routing Pipeline -->
+    <rect x="460" y="210" width="360" height="350" rx="14" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+    <text x="485" y="244" font-size="16" font-weight="700" fill="#0F172A">Ingress Topology Stages</text>
+
+    <!-- Sub-step 1 -->
+    <rect x="485" y="265" width="310" height="58" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+    <text x="505" y="290" font-size="13" font-weight="700" fill="#2563EB">01. Anycast Border Router</text>
+    <text x="505" y="308" font-size="11" font-weight="400" fill="#64748B">BGP optimal route propagation across 48 edge POPs</text>
+
+    <!-- Sub-step 2 -->
+    <rect x="485" y="335" width="310" height="58" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+    <text x="505" y="360" font-size="13" font-weight="700" fill="#16A34A">02. Distributed WAF Filter</text>
+    <text x="505" y="378" font-size="11" font-weight="400" fill="#64748B">Real-time heuristics &amp; OWASP Top 10 mitigation</text>
+
+    <!-- Sub-step 3 -->
+    <rect x="485" y="405" width="310" height="58" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+    <text x="505" y="430" font-size="13" font-weight="700" fill="#9333EA">03. Envoy Ingress Gateway</text>
+    <text x="505" y="448" font-size="11" font-weight="400" fill="#64748B">Dynamic mTLS tunnel creation to downstream pods</text>
+
+    <!-- Middle Footer Metrics -->
+    <text x="485" y="505" font-size="12" font-weight="600" fill="#0F172A">Latency Profiling:</text>
+    <text x="485" y="528" font-size="12" font-weight="500" fill="#64748B">P50: 0.8 ms &#8226; P95: 1.4 ms &#8226; P99: 1.82 ms</text>
+
+    <!-- Right Column: Regional Deployment Fleet -->
+    <rect x="850" y="210" width="345" height="350" rx="14" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+    <text x="875" y="244" font-size="16" font-weight="700" fill="#0F172A">Regional Fleet Health</text>
+
+    <rect x="875" y="265" width="295" height="74" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+    <text x="895" y="292" font-size="13" font-weight="700" fill="#0F172A">US-East (N. Virginia)</text>
+    <text x="895" y="312" font-size="11" font-weight="500" fill="#16A34A">&#x25CF; 18/18 Nodes Operational (16.2K rps)</text>
+    <text x="895" y="328" font-size="11" font-weight="400" fill="#64748B">Zone status: Optimal</text>
+
+    <rect x="875" y="350" width="295" height="74" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+    <text x="895" y="377" font-size="13" font-weight="700" fill="#0F172A">EU-Central (Frankfurt)</text>
+    <text x="895" y="397" font-size="11" font-weight="500" fill="#16A34A">&#x25CF; 16/16 Nodes Operational (18.4K rps)</text>
+    <text x="895" y="413" font-size="11" font-weight="400" fill="#64748B">Zone status: Optimal</text>
+
+    <rect x="875" y="435" width="295" height="74" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1"/>
+    <text x="895" y="462" font-size="13" font-weight="700" fill="#0F172A">AP-South (Singapore)</text>
+    <text x="895" y="482" font-size="11" font-weight="500" fill="#16A34A">&#x25CF; 14/14 Nodes Operational (13.6K rps)</text>
+    <text x="895" y="498" font-size="11" font-weight="400" fill="#64748B">Zone status: Optimal</text>
+
+    <!-- Bottom summary status -->
+    <text x="875" y="538" font-size="12" font-weight="600" fill="#16A34A">&#x2713; Global Cluster Quorum: 100% Synced</text>
+  </g>
+
+  <!-- Interactive Close Button (Links to Slide 3 Return Bridge) -->
+  <a href="#slide-3">
+    <g id="close-button" data-pptx-role="chrome" data-pptx-bounds="1110 120 96 40">
+      <rect x="1110" y="120" width="96" height="40" rx="20" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1.5"/>
+      <text x="1158" y="145" text-anchor="middle" font-size="13" font-weight="700" fill="#475569">Close &#x2715;</text>
+    </g>
+  </a>
+</svg>

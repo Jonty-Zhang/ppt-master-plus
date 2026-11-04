@@ -2224,7 +2224,7 @@ Recorded narration:
             raise argparse.ArgumentTypeError("must be greater than zero")
         return number
 
-    parser.add_argument('-t', '--transition', type=str, choices=transition_choices, default=None,
+    parser.add_argument('-t', '--transition', type=str.lower, choices=transition_choices, default=None,
                         help='Page transition effect (default: fade; "none" removes visual motion)')
     parser.add_argument('--transition-duration', type=non_negative_float, default=None,
                         help='Transition duration in seconds (default: 0.4)')

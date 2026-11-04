@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" lang="en-US" font-family="Segoe UI, sans-serif" data-pptx-page-role="content">
+  <rect id="slide-bg" x="0" y="0" width="1280" height="720" fill="#F8FAFC" data-pptx-role="background"/>
+
+  <!-- Persistent Navigation Track -->
+  <g id="nav-track" data-pptx-role="chrome" data-pptx-bounds="190 40 900 56">
+    <rect x="190" y="40" width="900" height="56" rx="28" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1"/>
+  </g>
+
+  <!-- Autonomous Moving Highlight Pill (paired via animations.json) -->
+  <g id="highlight-pill" data-pptx-role="decoration" data-pptx-bounds="420 44 216 48">
+    <rect x="420" y="44" width="216" height="48" rx="24" fill="#FFFFFF" stroke="#3B82F6" stroke-width="2"/>
+  </g>
+
+  <!-- Static Navigation Tabs (fixed coordinates and typography across all scenes) -->
+  <a href="#slide-1">
+    <g id="nav-tab-1" data-pptx-role="chrome" data-pptx-bounds="196 44 216 48">
+      <rect x="196" y="44" width="216" height="48" rx="24" fill="#FFFFFF" fill-opacity="0"/>
+      <text x="304" y="74" text-anchor="middle" font-size="16" font-weight="600" fill="#0F172A">Overview</text>
+    </g>
+  </a>
+  <a href="#slide-2">
+    <g id="nav-tab-2" data-pptx-role="chrome" data-pptx-bounds="420 44 216 48">
+      <rect x="420" y="44" width="216" height="48" rx="24" fill="#FFFFFF" fill-opacity="0"/>
+      <text x="528" y="74" text-anchor="middle" font-size="16" font-weight="600" fill="#0F172A">Features</text>
+    </g>
+  </a>
+  <a href="#slide-3">
+    <g id="nav-tab-3" data-pptx-role="chrome" data-pptx-bounds="644 44 216 48">
+      <rect x="644" y="44" width="216" height="48" rx="24" fill="#FFFFFF" fill-opacity="0"/>
+      <text x="752" y="74" text-anchor="middle" font-size="16" font-weight="600" fill="#0F172A">Architecture</text>
+    </g>
+  </a>
+  <a href="#slide-4">
+    <g id="nav-tab-4" data-pptx-role="chrome" data-pptx-bounds="868 44 216 48">
+      <rect x="868" y="44" width="216" height="48" rx="24" fill="#FFFFFF" fill-opacity="0"/>
+      <text x="976" y="74" text-anchor="middle" font-size="16" font-weight="600" fill="#0F172A">Roadmap</text>
+    </g>
+  </a>
+
+  <!-- Slide Content -->
+  <g id="page-header" data-pptx-bounds="100 130 1080 80">
+    <text x="100" y="162" font-size="28" font-weight="700" fill="#0F172A">Platform Feature Capabilities</text>
+    <text x="100" y="194" font-size="16" font-weight="400" fill="#64748B">Four architectural design invariants isolating independent highlight motion</text>
+  </g>
+
+  <g id="feature-card-1" data-pptx-bounds="100 240 520 180">
+    <rect x="100" y="240" width="520" height="180" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <text x="132" y="284" font-size="20" font-weight="700" fill="#0F172A">Stationary Label Coordinates</text>
+    <text x="132" y="322" font-size="14" font-weight="400" fill="#64748B">
+      <tspan x="132" dy="0">Navigation labels maintain identical spatial coordinates, fonts, and</tspan>
+      <tspan x="132" dy="22">bounds across all states, preventing text traveling during transitions.</tspan>
+    </text>
+    <text x="132" y="388" font-size="13" font-weight="600" fill="#2563EB">INVARIANT 01 — ZERO TEXT SHIFT</text>
+  </g>
+
+  <g id="feature-card-2" data-pptx-bounds="660 240 520 180">
+    <rect x="660" y="240" width="520" height="180" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <text x="692" y="284" font-size="20" font-weight="700" fill="#0F172A">Autonomous Highlight Carrier</text>
+    <text x="692" y="322" font-size="14" font-weight="400" fill="#64748B">
+      <tspan x="692" dy="0">A standalone vector pill carrier transitions independently along the X-axis</tspan>
+      <tspan x="692" dy="22">without enclosing or dragging text runs inside its group boundary.</tspan>
+    </text>
+    <text x="692" y="388" font-size="13" font-weight="600" fill="#2563EB">INVARIANT 02 — ISOLATED MOTION</text>
+  </g>
+
+  <g id="feature-card-3" data-pptx-bounds="100 440 520 180">
+    <rect x="100" y="440" width="520" height="180" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <text x="132" y="484" font-size="20" font-weight="700" fill="#0F172A">Bidirectional Hyperlink Targets</text>
+    <text x="132" y="522" font-size="14" font-weight="400" fill="#64748B">
+      <tspan x="132" dy="0">Every tab contains canonical SVG slide jump anchors supporting direct</tspan>
+      <tspan x="132" dy="22">navigation to adjacent, nonadjacent, and return destination slides.</tspan>
+    </text>
+    <text x="132" y="588" font-size="13" font-weight="600" fill="#2563EB">INVARIANT 03 — FULL INTERACTION</text>
+  </g>
+
+  <g id="feature-card-4" data-pptx-bounds="660 440 520 180">
+    <rect x="660" y="440" width="520" height="180" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <text x="692" y="484" font-size="20" font-weight="700" fill="#0F172A">Deterministic Morph Object Pairing</text>
+    <text x="692" y="522" font-size="14" font-weight="400" fill="#64748B">
+      <tspan x="692" dy="0">Explicit sidecar configuration forces strict DrawingML matching without</tspan>
+      <tspan x="692" dy="22">relying on PowerPoint heuristic shape interpolation algorithms.</tspan>
+    </text>
+    <text x="692" y="588" font-size="13" font-weight="600" fill="#2563EB">INVARIANT 04 — EXPLICIT IDENTITY</text>
+  </g>
+</svg>

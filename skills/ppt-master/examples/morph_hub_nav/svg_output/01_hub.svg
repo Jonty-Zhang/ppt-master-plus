@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" lang="en-US" font-family="Segoe UI, sans-serif" data-pptx-page-role="content">
+  <rect id="slide-bg" x="0" y="0" width="1280" height="720" fill="#0A0F1D" data-pptx-role="background"/>
+
+  <!-- Top Persistent Navigation Bar -->
+  <g id="nav-container" data-pptx-bounds="80 32 1120 44">
+    <rect x="80" y="32" width="1120" height="44" rx="10" fill="#111827" stroke="#1F2937" stroke-width="1"/>
+    <text x="110" y="59" fill="#F8FAFC" font-size="16" font-weight="bold">System Architecture</text>
+  </g>
+
+  <!-- Moving Highlight Pill (Only colored geometry) -->
+  <g id="active-pill" data-pptx-bounds="88 94 176 36">
+    <rect x="88" y="94" width="176" height="36" rx="8" fill="#1E293B" stroke="#0284C7" stroke-width="1.5"/>
+  </g>
+
+  <!-- Navigation Text Labels (100% Stationary, Disjoint from Moving Pill) -->
+  <a href="#slide-1">
+    <g id="nav-tab-0" data-pptx-bounds="88 94 176 36">
+      <rect x="88" y="94" width="176" height="36" fill="#1E293B" opacity="0.01"/>
+      <text x="176" y="117" fill="#38BDF8" font-size="14" font-weight="bold" text-anchor="middle">Overview Hub</text>
+    </g>
+  </a>
+  <a href="#slide-2">
+    <g id="nav-tab-1" data-pptx-bounds="270 94 176 36">
+      <rect x="270" y="94" width="176" height="36" fill="#1E293B" opacity="0.01"/>
+      <text x="358" y="117" fill="#94A3B8" font-size="14" text-anchor="middle">1. Architecture</text>
+    </g>
+  </a>
+  <a href="#slide-3">
+    <g id="nav-tab-2" data-pptx-bounds="452 94 176 36">
+      <rect x="452" y="94" width="176" height="36" fill="#1E293B" opacity="0.01"/>
+      <text x="540" y="117" fill="#94A3B8" font-size="14" text-anchor="middle">2. Performance</text>
+    </g>
+  </a>
+  <a href="#slide-4">
+    <g id="nav-tab-3" data-pptx-bounds="634 94 176 36">
+      <rect x="634" y="94" width="176" height="36" fill="#1E293B" opacity="0.01"/>
+      <text x="722" y="117" fill="#94A3B8" font-size="14" text-anchor="middle">3. Security</text>
+    </g>
+  </a>
+
+  <!-- Topic 1: Clean Carrier Frame (Structural Decoration Role) -->
+  <g id="card-alpha" data-pptx-role="decoration" data-pptx-bounds="80 160 350 510">
+    <rect x="80" y="160" width="350" height="510" rx="14" fill="#1E293B" stroke="#0284C7" stroke-width="2"/>
+    <rect x="80" y="160" width="350" height="6" rx="3" fill="#0284C7"/>
+  </g>
+
+  <!-- Topic 1: Identity Title (Hoisted Font-Weight) -->
+  <g id="title-alpha" data-pptx-bounds="110 195 290 65" font-weight="bold">
+    <text x="110" y="215" fill="#38BDF8" font-size="14">CHAPTER 01</text>
+    <text x="110" y="245" fill="#F8FAFC" font-size="22">Core Architecture</text>
+  </g>
+
+  <!-- Topic 1: Summary Body & Action -->
+  <g id="summary-alpha" data-pptx-bounds="110 275 290 380">
+    <text x="110" y="295" fill="#CBD5E1" font-size="14">Structured SVG vector parsing</text>
+    <text x="110" y="325" fill="#CBD5E1" font-size="14">Exact bounding constraints</text>
+    <text x="110" y="355" fill="#CBD5E1" font-size="14">Deterministic Selection Pane pairing</text>
+    <a href="#slide-2">
+      <g id="btn-open-1" data-pptx-bounds="110 590 290 40">
+        <rect x="110" y="590" width="290" height="40" rx="6" fill="#0284C7"/>
+        <text x="255" y="615" fill="#FFFFFF" font-size="14" font-weight="bold" text-anchor="middle">Open Chapter 1 →</text>
+      </g>
+    </a>
+  </g>
+
+  <!-- Topic 2: Clean Carrier Frame (Structural Decoration Role) -->
+  <g id="card-beta" data-pptx-role="decoration" data-pptx-bounds="465 160 350 510">
+    <rect x="465" y="160" width="350" height="510" rx="14" fill="#1E293B" stroke="#334155" stroke-width="1"/>
+    <rect x="465" y="160" width="350" height="6" rx="3" fill="#9333EA"/>
+  </g>
+
+  <!-- Topic 2: Identity Title (Hoisted Font-Weight) -->
+  <g id="title-beta" data-pptx-bounds="495 195 290 65" font-weight="bold">
+    <text x="495" y="215" fill="#C084FC" font-size="14">CHAPTER 02</text>
+    <text x="495" y="245" fill="#F8FAFC" font-size="22">High Performance</text>
+  </g>
+
+  <!-- Topic 2: Summary Body & Action -->
+  <g id="summary-beta" data-pptx-bounds="495 275 290 380">
+    <text x="495" y="295" fill="#CBD5E1" font-size="14">Direct OpenXML EMU scaling</text>
+    <text x="495" y="325" fill="#CBD5E1" font-size="14">60 FPS native vector interpolation</text>
+    <text x="495" y="355" fill="#CBD5E1" font-size="14">Stream-compressed memory footprint</text>
+    <a href="#slide-3">
+      <g id="btn-open-2" data-pptx-bounds="495 590 290 40">
+        <rect x="495" y="590" width="290" height="40" rx="6" fill="#1E293B" stroke="#9333EA" stroke-width="1"/>
+        <text x="640" y="615" fill="#C084FC" font-size="14" font-weight="bold" text-anchor="middle">Open Chapter 2 →</text>
+      </g>
+    </a>
+  </g>
+
+  <!-- Topic 3: Clean Carrier Frame (Structural Decoration Role) -->
+  <g id="card-gamma" data-pptx-role="decoration" data-pptx-bounds="850 160 350 510">
+    <rect x="850" y="160" width="350" height="510" rx="14" fill="#1E293B" stroke="#334155" stroke-width="1"/>
+    <rect x="850" y="160" width="350" height="6" rx="3" fill="#10B981"/>
+  </g>
+
+  <!-- Topic 3: Identity Title (Hoisted Font-Weight) -->
+  <g id="title-gamma" data-pptx-bounds="880 195 290 65" font-weight="bold">
+    <text x="880" y="215" fill="#34D399" font-size="14">CHAPTER 03</text>
+    <text x="880" y="245" fill="#F8FAFC" font-size="22">Security &amp; Parity</text>
+  </g>
+
+  <!-- Topic 3: Summary Body & Action -->
+  <g id="summary-gamma" data-pptx-bounds="880 275 290 380">
+    <text x="880" y="295" fill="#CBD5E1" font-size="14">Zero-dependency OpenXML generation</text>
+    <text x="880" y="325" fill="#CBD5E1" font-size="14">Strict container parity enforcement</text>
+    <text x="880" y="355" fill="#CBD5E1" font-size="14">Cross-platform Office 365 playback</text>
+    <a href="#slide-4">
+      <g id="btn-open-3" data-pptx-bounds="880 590 290 40">
+        <rect x="880" y="590" width="290" height="40" rx="6" fill="#1E293B" stroke="#10B981" stroke-width="1"/>
+        <text x="1025" y="615" fill="#34D399" font-size="14" font-weight="bold" text-anchor="middle">Open Chapter 3 →</text>
+      </g>
+    </a>
+  </g>
+</svg>

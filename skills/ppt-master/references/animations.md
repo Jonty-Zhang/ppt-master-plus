@@ -11,7 +11,7 @@ Motion is several separate capabilities, not one dial; two of them are decided w
 | A generic deck-wide entrance build | `-a auto`; with the default `after-previous` Start, groups use fixed `--animation-stagger` timing, not narration cues | Post-processing; §2, §4 |
 | Explicit object lifecycle choreography | An `animations.json` sidecar for selected enter/emphasize/move/exit/static duties, order, Start, timing | Post-processing; §2, §4, [`customize-animations`](../workflows/stages/customize-animations.md) |
 | Object reveals synchronized to recorded narration | Narration-cue sync derives `narration_animations.json` from `animations.json`, page-local SRT, and `narration_timing.json`; `-a auto` alone does not | Audio stage; [`generate-audio`](../workflows/stages/generate-audio.md) |
-| A continuous action — slide-in, flip, camera push-in, progressive reveal, camera pan | **Morph: author the action as two static pages**, then select Morph and add explicit pairs when identity must be deterministic; there is no keyframe timeline anywhere — the difference between two editable slides *is* the animation | **Page authoring (Step 6), then motion post-processing** — §2.1, §3.1 |
+| A continuous action — slide-in, flip, camera push-in, progressive reveal, camera pan | **Morph: author the action as two static pages**, then select Morph and add explicit pairs when identity must be deterministic; there is no keyframe timeline anywhere — the difference between two editable slides *is* the animation; see [`morph-recipes.md`](./morph-recipes.md) for 5 core choreography families and rigid rotation | **Page authoring (Step 6), then motion post-processing** — §2.1, §3.1, [`morph-recipes.md`](./morph-recipes.md) |
 | A static full-bleed page that should stop looking frozen | Slow `path_*` motion on a visually subordinate image or atmospheric layer | Post-processing; §4.1 |
 | Carousel, counting numerals, parallax depth, click-to-reveal flip card | Four recipes assembled from the mechanisms above; carousel and odometer need paired pages | §4.2 |
 | Unattended looping playback | `--auto-advance <seconds>`, optionally with `-t none`; add `--kiosk` when the show must loop and ignore clicks (signage, a touch guide navigated by its own buttons) | Export; §3 |
@@ -108,7 +108,7 @@ When one semantic object continues across adjacent slides, the destination slide
 | Owner | `morph` belongs to the destination; `morph.from` is the immediately preceding stem in export order |
 | Source of pairs | `scaffold` never guesses identity — add pairs from the motion plan after inspecting final direct-root ids |
 | Pair key | A stable identity whose `from`/`to` are unique direct-root `<g>` ids on the two slides, written without `!!` (export writes the Selection Pane name `!!<key>` on both); a root primitive with a static role marker is not pairable, neither is a `Native-ready=yes` chart or table — `--native-charts-and-tables` turns it into a graphicFrame and the pair fails at export — nor a `data-pptx-placeholder` slot on a structured page, which export rewrites into a layout placeholder; pair a Slide-local group there |
-| Destination effect | A destination with pairs sets `effect: morph` explicitly (`morph_by` omitted or `object`; `word`/`character` rejected; a CLI override that changes the effect fails) |
+| Destination effect | A destination with pairs sets `effect: morph` explicitly (or alias `smooth` / `平滑`, normalized to canonical `morph`; `morph_by` omitted or `object`; `word`/`character` rejected; a CLI override that changes the effect fails) |
 | Chains | A middle slide may continue an object into another Morph under the same key |
 | Uniqueness | One key never names two objects on a slide; one object never carries two keys; every `!!` key shared by adjacent Morph pages must be declared |
 | Coexistence | Pairing coexists with in-slide animation and survives `-a none`; `--no-animations` disables everything |
@@ -161,7 +161,7 @@ python3 skills/ppt-master/scripts/svg_to_pptx.py <project> -t none --auto-advanc
 
 | Flag | Meaning |
 |---|---|
-| `-t/--transition` | Default `fade`; `none` keeps an explicit auto-advance |
+| `-t/--transition` | Default `fade`; `none` keeps an explicit auto-advance; supports native keys (including `morph`) and aliases (`smooth`, `平滑`) |
 | `--transition-duration` | Default `0.4` |
 | `--auto-advance` | Seconds, longer than the page's animation total; click still advances |
 | `--kiosk` | Loop until Escape and ignore click/keyboard advance; only timings and hyperlinks move between slides |
@@ -170,7 +170,7 @@ python3 skills/ppt-master/scripts/svg_to_pptx.py <project> -t none --auto-advanc
 
 ### 3.1 Morph — author an action as the difference between two pages
 
-Morph tweens matched objects across consecutive slides, so any continuous action is two static pages plus Morph: duplicate the page, change one property, PowerPoint interpolates. Chain three or more pages for extend–hold–retract.
+Morph tweens matched objects across consecutive slides, so any continuous action is two static pages plus Morph: duplicate the page, change one property, PowerPoint interpolates. Chain three or more pages for extend–hold–retract. Both CLI (`-t 平滑` / `-t smooth` / `-t morph`) and sidecar JSON (`"effect": "平滑"` / `"smooth"` / `"morph"`) are normalized to canonical `morph` without polluting native registrations.
 
 | Property change | Reads as |
 |---|---|

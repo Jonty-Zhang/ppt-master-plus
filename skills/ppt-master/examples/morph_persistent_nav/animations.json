@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "defaults": {
+    "transition": {
+      "effect": "morph",
+      "effect_options": {
+        "morph_by": "object"
+      },
+      "duration": 0.5
+    },
+    "animation": {
+      "effect": "none"
+    }
+  },
+  "slides": {
+    "01_overview": {
+      "transition": {
+        "effect": "morph",
+        "effect_options": {
+          "morph_by": "object"
+        },
+        "duration": 0.5
+      }
+    },
+    "02_features": {
+      "transition": {
+        "effect": "morph",
+        "effect_options": {
+          "morph_by": "object"
+        },
+        "duration": 0.5
+      },
+      "morph": {
+        "from": "01_overview",
+        "pairs": {
+          "nav-highlight": {
+            "from": "highlight-pill",
+            "to": "highlight-pill"
+          }
+        }
+      }
+    },
+    "03_architecture": {
+      "transition": {
+        "effect": "morph",
+        "effect_options": {
+          "morph_by": "object"
+        },
+        "duration": 0.5
+      },
+      "morph": {
+        "from": "02_features",
+        "pairs": {
+          "nav-highlight": {
+            "from": "highlight-pill",
+            "to": "highlight-pill"
+          }
+        }
+      }
+    },
+    "04_roadmap": {
+      "transition": {
+        "effect": "morph",
+        "effect_options": {
+          "morph_by": "object"
+        },
+        "duration": 0.5
+      },
+      "morph": {
+        "from": "03_architecture",
+        "pairs": {
+          "nav-highlight": {
+            "from": "highlight-pill",
+            "to": "highlight-pill"
+          }
+        }
+      }
+    }
+  }
+}

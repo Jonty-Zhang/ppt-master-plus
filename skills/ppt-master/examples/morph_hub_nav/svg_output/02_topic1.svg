@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" lang="en-US" font-family="Segoe UI, sans-serif" data-pptx-page-role="content">
+  <rect id="slide-bg" x="0" y="0" width="1280" height="720" fill="#0A0F1D" data-pptx-role="background"/>
+
+  <!-- Top Persistent Navigation Bar -->
+  <g id="nav-container" data-pptx-bounds="80 32 1120 44">
+    <rect x="80" y="32" width="1120" height="44" rx="10" fill="#111827" stroke="#1F2937" stroke-width="1"/>
+    <text x="110" y="59" fill="#F8FAFC" font-size="16" font-weight="bold">System Architecture</text>
+  </g>
+
+  <!-- Moving Highlight Pill (Positioned under Chapter 1) -->
+  <g id="active-pill" data-pptx-bounds="270 94 176 36">
+    <rect x="270" y="94" width="176" height="36" rx="8" fill="#1E293B" stroke="#0284C7" stroke-width="1.5"/>
+  </g>
+
+  <!-- Navigation Text Labels (100% Stationary) -->
+  <a href="#slide-1">
+    <g id="nav-tab-0" data-pptx-bounds="88 94 176 36">
+      <rect x="88" y="94" width="176" height="36" fill="#1E293B" opacity="0.01"/>
+      <text x="176" y="117" fill="#94A3B8" font-size="14" text-anchor="middle">Overview Hub</text>
+    </g>
+  </a>
+  <a href="#slide-2">
+    <g id="nav-tab-1" data-pptx-bounds="270 94 176 36">
+      <rect x="270" y="94" width="176" height="36" fill="#1E293B" opacity="0.01"/>
+      <text x="358" y="117" fill="#38BDF8" font-size="14" font-weight="bold" text-anchor="middle">1. Architecture</text>
+    </g>
+  </a>
+  <a href="#slide-3">
+    <g id="nav-tab-2" data-pptx-bounds="452 94 176 36">
+      <rect x="452" y="94" width="176" height="36" fill="#1E293B" opacity="0.01"/>
+      <text x="540" y="117" fill="#94A3B8" font-size="14" text-anchor="middle">2. Performance</text>
+    </g>
+  </a>
+  <a href="#slide-4">
+    <g id="nav-tab-3" data-pptx-bounds="634 94 176 36">
+      <rect x="634" y="94" width="176" height="36" fill="#1E293B" opacity="0.01"/>
+      <text x="722" y="117" fill="#94A3B8" font-size="14" text-anchor="middle">3. Security</text>
+    </g>
+  </a>
+
+  <!-- Topic 1: Expanded Carrier Frame (Structural Decoration Role) -->
+  <g id="card-alpha" data-pptx-role="decoration" data-pptx-bounds="80 160 1120 510">
+    <rect x="80" y="160" width="1120" height="510" rx="14" fill="#0F243A" stroke="#0284C7" stroke-width="2"/>
+    <rect x="80" y="160" width="1120" height="6" rx="3" fill="#0284C7"/>
+  </g>
+
+  <!-- Topic 1: Stably Matched Identity Title -->
+  <g id="title-alpha" data-pptx-bounds="120 195 500 65" font-weight="bold">
+    <text x="120" y="215" fill="#38BDF8" font-size="14">CHAPTER 01</text>
+    <text x="120" y="245" fill="#F8FAFC" font-size="24">Core Architecture</text>
+  </g>
+
+  <!-- Topic 1: Clean Detailed Points & Return Action (Native Cross-Fade) -->
+  <g id="detail-alpha" data-pptx-bounds="120 280 1040 370">
+    <text x="120" y="300" fill="#38BDF8" font-size="16" font-weight="bold">Modular DrawingML Composition Pipeline</text>
+    <text x="120" y="335" fill="#CBD5E1" font-size="15">1. Ingestion Layer: Structured SVG vectors parsed with exact bounding attributes.</text>
+    <text x="120" y="370" fill="#CBD5E1" font-size="15">2. Identity Mapping: Deterministic forced matching via Selection Pane names.</text>
+    <text x="120" y="405" fill="#CBD5E1" font-size="15">3. Geometry Solver: Coordinates mapped to OpenXML EMUs (1 px = 9525 EMU).</text>
+    <text x="120" y="440" fill="#CBD5E1" font-size="15">4. Packaging Engine: Native DrawingML shapes written with zero raster degradation.</text>
+
+    <a href="#slide-1">
+      <g id="btn-return-1" data-pptx-bounds="920 600 240 46">
+        <rect x="920" y="600" width="240" height="46" rx="8" fill="#0284C7"/>
+        <text x="1040" y="629" fill="#FFFFFF" font-size="15" font-weight="bold" text-anchor="middle">← Return to Hub</text>
+      </g>
+    </a>
+  </g>
+
+  <!-- Staged Topic 2: Carrier Frame & Title (Off-Canvas Right) -->
+  <g id="card-beta" data-pptx-role="decoration" data-pptx-bounds="1320 160 350 510" data-pptx-morph-staging="true">
+    <rect x="1320" y="160" width="350" height="510" rx="14" fill="#1E293B"/>
+    <rect x="1320" y="160" width="350" height="6" rx="3" fill="#9333EA"/>
+  </g>
+  <g id="title-beta" data-pptx-bounds="1350 195 290 65" data-pptx-morph-staging="true" font-weight="bold">
+    <text x="1350" y="215" fill="#C084FC" font-size="14">CHAPTER 02</text>
+    <text x="1350" y="245" fill="#F8FAFC" font-size="22">High Performance</text>
+  </g>
+
+  <!-- Staged Topic 3: Carrier Frame & Title (Off-Canvas Right) -->
+  <g id="card-gamma" data-pptx-role="decoration" data-pptx-bounds="1700 160 350 510" data-pptx-morph-staging="true">
+    <rect x="1700" y="160" width="350" height="510" rx="14" fill="#1E293B"/>
+    <rect x="1700" y="160" width="350" height="6" rx="3" fill="#10B981"/>
+  </g>
+  <g id="title-gamma" data-pptx-bounds="1730 195 290 65" data-pptx-morph-staging="true" font-weight="bold">
+    <text x="1730" y="215" fill="#34D399" font-size="14">CHAPTER 03</text>
+    <text x="1730" y="245" fill="#F8FAFC" font-size="22">Security &amp; Parity</text>
+  </g>
+</svg>

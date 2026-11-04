@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" lang="en-US" font-family="Segoe UI, sans-serif" data-pptx-page-role="content">
+  <rect id="slide-bg" x="0" y="0" width="1280" height="720" fill="#F8FAFC" data-pptx-role="background"/>
+
+  <!-- Persistent Navigation Track -->
+  <g id="nav-track" data-pptx-role="chrome" data-pptx-bounds="190 40 900 56">
+    <rect x="190" y="40" width="900" height="56" rx="28" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1"/>
+  </g>
+
+  <!-- Autonomous Moving Highlight Pill (paired via animations.json) -->
+  <g id="highlight-pill" data-pptx-role="decoration" data-pptx-bounds="868 44 216 48">
+    <rect x="868" y="44" width="216" height="48" rx="24" fill="#FFFFFF" stroke="#3B82F6" stroke-width="2"/>
+  </g>
+
+  <!-- Static Navigation Tabs (fixed coordinates and typography across all scenes) -->
+  <a href="#slide-1">
+    <g id="nav-tab-1" data-pptx-role="chrome" data-pptx-bounds="196 44 216 48">
+      <rect x="196" y="44" width="216" height="48" rx="24" fill="#FFFFFF" fill-opacity="0"/>
+      <text x="304" y="74" text-anchor="middle" font-size="16" font-weight="600" fill="#0F172A">Overview</text>
+    </g>
+  </a>
+  <a href="#slide-2">
+    <g id="nav-tab-2" data-pptx-role="chrome" data-pptx-bounds="420 44 216 48">
+      <rect x="420" y="44" width="216" height="48" rx="24" fill="#FFFFFF" fill-opacity="0"/>
+      <text x="528" y="74" text-anchor="middle" font-size="16" font-weight="600" fill="#0F172A">Features</text>
+    </g>
+  </a>
+  <a href="#slide-3">
+    <g id="nav-tab-3" data-pptx-role="chrome" data-pptx-bounds="644 44 216 48">
+      <rect x="644" y="44" width="216" height="48" rx="24" fill="#FFFFFF" fill-opacity="0"/>
+      <text x="752" y="74" text-anchor="middle" font-size="16" font-weight="600" fill="#0F172A">Architecture</text>
+    </g>
+  </a>
+  <a href="#slide-4">
+    <g id="nav-tab-4" data-pptx-role="chrome" data-pptx-bounds="868 44 216 48">
+      <rect x="868" y="44" width="216" height="48" rx="24" fill="#FFFFFF" fill-opacity="0"/>
+      <text x="976" y="74" text-anchor="middle" font-size="16" font-weight="600" fill="#0F172A">Roadmap</text>
+    </g>
+  </a>
+
+  <!-- Slide Content -->
+  <g id="page-header" data-pptx-bounds="100 130 1080 80">
+    <text x="100" y="162" font-size="28" font-weight="700" fill="#0F172A">Milestones &amp; Delivery Roadmap</text>
+    <text x="100" y="194" font-size="16" font-weight="400" fill="#64748B">Progression from user diagnostic reference to verified native presentation output</text>
+  </g>
+
+  <g id="phase-1" data-pptx-bounds="100 240 250 380">
+    <rect x="100" y="240" width="250" height="380" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <text x="124" y="280" font-size="13" font-weight="700" fill="#2563EB">PHASE 01</text>
+    <text x="124" y="316" font-size="20" font-weight="700" fill="#0F172A">Source Intake</text>
+    <text x="124" y="356" font-size="14" font-weight="400" fill="#64748B">
+      <tspan x="124" dy="0">Extracted EMU bounds</tspan>
+      <tspan x="124" dy="22">and verified native</tspan>
+      <tspan x="124" dy="22">Morph p159 transition</tspan>
+      <tspan x="124" dy="22">from user reference</tspan>
+      <tspan x="124" dy="22">diagnostic intake.</tspan>
+    </text>
+  </g>
+
+  <g id="phase-2" data-pptx-bounds="376 240 250 380">
+    <rect x="376" y="240" width="250" height="380" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <text x="400" y="280" font-size="13" font-weight="700" fill="#16A34A">PHASE 02</text>
+    <text x="400" y="316" font-size="20" font-weight="700" fill="#0F172A">SVG Authoring</text>
+    <text x="400" y="356" font-size="14" font-weight="400" fill="#64748B">
+      <tspan x="400" dy="0">Authored decoupled</tspan>
+      <tspan x="400" dy="22">static text labels and</tspan>
+      <tspan x="400" dy="22">isolated highlight</tspan>
+      <tspan x="400" dy="22">pill geometry in</tspan>
+      <tspan x="400" dy="22">1280x720 canvas.</tspan>
+    </text>
+  </g>
+
+  <g id="phase-3" data-pptx-bounds="653 240 250 380">
+    <rect x="653" y="240" width="250" height="380" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <text x="677" y="280" font-size="13" font-weight="700" fill="#9333EA">PHASE 03</text>
+    <text x="677" y="316" font-size="20" font-weight="700" fill="#0F172A">Morph Pairing</text>
+    <text x="677" y="356" font-size="14" font-weight="400" fill="#64748B">
+      <tspan x="677" dy="0">Established exact</tspan>
+      <tspan x="677" dy="22">adjacent object pairs</tspan>
+      <tspan x="677" dy="22">via animations.json</tspan>
+      <tspan x="677" dy="22">with !! naming for</tspan>
+      <tspan x="677" dy="22">forced matching.</tspan>
+    </text>
+  </g>
+
+  <g id="phase-4" data-pptx-bounds="930 240 250 380">
+    <rect x="930" y="240" width="250" height="380" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <text x="954" y="280" font-size="13" font-weight="700" fill="#EA580C">PHASE 04</text>
+    <text x="954" y="316" font-size="20" font-weight="700" fill="#0F172A">WPS Hand-off</text>
+    <text x="954" y="356" font-size="14" font-weight="400" fill="#64748B">
+      <tspan x="954" dy="0">Shipped verified</tspan>
+      <tspan x="954" dy="22">deliverable for CC</tspan>
+      <tspan x="954" dy="22">office suite visual</tspan>
+      <tspan x="954" dy="22">acceptance and frame</tspan>
+      <tspan x="954" dy="22">stability check.</tspan>
+    </text>
+  </g>
+</svg>
