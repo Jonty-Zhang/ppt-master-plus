@@ -1198,8 +1198,16 @@ def convert_g(elem: ET.Element, ctx: ConvertContext) -> ShapeResult | None:
         bool(transform)
         and _is_unit_axis_reflection(parse_transform_operations(transform))
     )
+    rotate_pivot = (
+        _extract_rotate_pivot(transform)
+        if (not native_subtree_active and bool(transform))
+        else None
+    )
+    if rotate_pivot is not None:
+        angle_deg = parse_transform_operations(transform)[0][1][0]
     matrix_supported = (
         not native_subtree_active
+        and rotate_pivot is None
         and bool(transform)
         and visual_children
         and (
@@ -1207,17 +1215,6 @@ def convert_g(elem: ET.Element, ctx: ConvertContext) -> ShapeResult | None:
             or unit_axis_reflection
         )
     )
-    # A pure ``rotate(angle [cx cy])`` falls through to the fallback path
-    # below (children are rect/text/path/etc. that don't consume a full
-    # matrix). Decomposing the matrix produces translation components
-    # (e, f) that encode the pivot — handing those to children would
-    # *double-translate* them because grpSp's own ``rot`` already
-    # rotates around the group's bounding-box centre. Skip the child
-    # translation here and apply pivot-centre compensation to ``a:off``
-    # below instead.
-    rotate_pivot = _extract_rotate_pivot(transform) if not matrix_supported else None
-    if rotate_pivot is not None:
-        angle_deg = parse_transform_operations(transform)[0][1][0]
     if matrix_supported:
         child_ctx = ctx.child(
             0, 0, 1.0, 1.0,
@@ -1351,6 +1348,7 @@ def convert_g(elem: ET.Element, ctx: ConvertContext) -> ShapeResult | None:
         len(child_results) == 1
         # A fallback rotation still belongs to this group. Keep its container
         # so the pivot compensation below runs even for a single text child.
+        and rotate_pivot is None
         and (matrix_supported or not angle_deg)
         and not explicit_native_group
         and (
@@ -1383,35 +1381,34 @@ def convert_g(elem: ET.Element, ctx: ConvertContext) -> ShapeResult | None:
     if min_x == float('inf'):
         return ShapeResult(xml='\n'.join(result.xml for result in child_results))
 
-    group_x = int(min_x)
-    group_y = int(min_y)
-    group_w = max(int(max_x - min_x), 1)
-    group_h = max(int(max_y - min_y), 1)
-
-    # ``rotate(angle, cx, cy)`` rotates around the SVG pivot, but DrawingML
-    # grpSp ``rot`` always rotates around the group's own bbox centre. When
-    # those centres differ, the visual position drifts by exactly the
-    # translation a rotate-around-pivot equals. Compensate by offsetting the
-    # outer <a:off> only; <a:chOff> stays on the unshifted bbox so children
-    # (still at their original SVG positions because rotate_pivot suppressed
-    # the dx/dy translation above) remain aligned inside the group.
-    off_x = group_x
-    off_y = group_y
-    if rotate_pivot is not None and angle_deg:
+    if rotate_pivot is not None:
         cx_svg, cy_svg = rotate_pivot
         pivot_ex = (cx_svg + ctx.translate_x) * EMU_PER_PX
         pivot_ey = (cy_svg + ctx.translate_y) * EMU_PER_PX
-        bbox_cx = group_x + group_w / 2
-        bbox_cy = group_y + group_h / 2
-        theta = math.radians(angle_deg)
-        cos_t = math.cos(theta)
-        sin_t = math.sin(theta)
-        # Where the bbox centre lands after rotating around the pivot, minus
-        # where DrawingML's grpSp rot would leave it (i.e. unchanged).
-        delta_x = (bbox_cx - pivot_ex) * cos_t - (bbox_cy - pivot_ey) * sin_t + pivot_ex - bbox_cx
-        delta_y = (bbox_cx - pivot_ex) * sin_t + (bbox_cy - pivot_ey) * cos_t + pivot_ey - bbox_cy
-        off_x = int(round(group_x + delta_x))
-        off_y = int(round(group_y + delta_y))
+        # DrawingML grpSp rot rotates around the group frame centre.
+        # Symmetrize the group frame around the pivot so that the frame
+        # (off, ext, chOff, chExt) remains 100% invariant across consecutive Morph slides,
+        # ensuring only 'rot' changes and eliminating translation/scale drift.
+        r = max(
+            abs(pivot_ex - min_x),
+            abs(max_x - pivot_ex),
+            abs(pivot_ey - min_y),
+            abs(max_y - pivot_ey),
+            EMU_PER_PX,
+        )
+        group_x = int(round(pivot_ex - r))
+        group_y = int(round(pivot_ey - r))
+        group_w = int(round(2 * r))
+        group_h = int(round(2 * r))
+        off_x = group_x
+        off_y = group_y
+    else:
+        group_x = int(min_x)
+        group_y = int(min_y)
+        group_w = max(int(max_x - min_x), 1)
+        group_h = max(int(max_y - min_y), 1)
+        off_x = group_x
+        off_y = group_y
 
     shapes_xml = '\n'.join(result.xml for result in child_results)
     group_id = (
