@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" lang="en-US" font-family="Segoe UI, sans-serif" data-pptx-page-role="content">
+  <rect id="slide-bg" x="0" y="0" width="1280" height="720" fill="#F8FAFC" data-pptx-role="background"/>
+
+  <!-- Hero Badge (persistent masthead badge at identical coordinates) -->
+  <g id="hero-badge" data-pptx-bounds="80 36 290 52">
+    <rect x="80" y="36" width="290" height="52" rx="26" fill="#EFF6FF" stroke="#3B82F6" stroke-width="1.5"/>
+    <circle cx="110" cy="62" r="15" fill="#2563EB"/>
+    <text x="110" y="67" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">AI</text>
+    <text x="136" y="67" font-size="13" font-weight="700" fill="#1D4ED8">ENTERPRISE PLATFORM 2026</text>
+  </g>
+
+  <!-- Hero Title Block (persistent header zone) -->
+  <g id="hero-title-block" data-pptx-bounds="390 32 810 40">
+    <text x="390" y="60" font-size="32" font-weight="700" fill="#0F172A">Intelligent Autonomous Systems</text>
+  </g>
+  <g id="detail-caption" data-pptx-bounds="390 74 810 20">
+    <text x="390" y="86" font-size="14" font-weight="400" fill="#64748B">Pillar 01 Deep Dive: Core Vector Execution Engine Architecture</text>
+  </g>
+
+  <!-- Pillar 1: Pure Carrier Frame (Expanded from 350px column to 1120px full view, paired for geometric expansion) -->
+  <g id="pillar-card-1" data-pptx-role="decoration" data-pptx-bounds="80 130 1120 530">
+    <rect x="80" y="130" width="1120" height="530" rx="16" fill="#FFFFFF" stroke="#3B82F6" stroke-width="2"/>
+  </g>
+
+  <!-- Pillar 1: Identity Title (Stable text group, matched typography, spatial translation) -->
+  <g id="pillar-title-1" data-pptx-bounds="176 164 500 30">
+    <text x="176" y="184" font-size="22" font-weight="700" fill="#0F172A">Core Engine Stack</text>
+  </g>
+  <g id="pillar-badge-1" data-pptx-bounds="112 160 48 48">
+    <rect x="112" y="160" width="48" height="48" rx="12" fill="#EFF6FF"/>
+    <text x="136" y="191" text-anchor="middle" font-size="20" font-weight="700" fill="#2563EB">01</text>
+  </g>
+  <g id="pillar-caption-1" data-pptx-bounds="176 198 500 22">
+    <text x="176" y="210" font-size="14" font-weight="500" fill="#2563EB">High-Speed Vector Pipeline</text>
+  </g>
+
+  <!-- Pillar 1: Detail Body (Independent page-local content, native cross-fade in-place) -->
+  <g id="pillar-detail-1" data-pptx-bounds="112 240 1048 400">
+    <!-- Left Column: Specifications and Latency KPI -->
+    <text x="112" y="254" font-size="14" font-weight="400" fill="#64748B">
+      <tspan x="112" dy="0">The Core Engine bypasses intermediate browser DOM</tspan>
+      <tspan x="112" dy="24">representations entirely, compiling declarative specifications</tspan>
+      <tspan x="112" dy="24">directly into Microsoft OpenXML presentation trees.</tspan>
+    </text>
+
+    <rect x="112" y="325" width="22" height="22" rx="6" fill="#EFF6FF"/>
+    <text x="123" y="340" text-anchor="middle" font-size="12" font-weight="700" fill="#2563EB">&#x2713;</text>
+    <text x="144" y="341" font-size="14" font-weight="600" fill="#0F172A">Direct OpenXML Tree Generation</text>
+
+    <rect x="112" y="360" width="22" height="22" rx="6" fill="#EFF6FF"/>
+    <text x="123" y="375" text-anchor="middle" font-size="12" font-weight="700" fill="#2563EB">&#x2713;</text>
+    <text x="144" y="376" font-size="14" font-weight="600" fill="#0F172A">Zero-Rasterization Vector Primitives</text>
+
+    <rect x="112" y="395" width="22" height="22" rx="6" fill="#EFF6FF"/>
+    <text x="123" y="410" text-anchor="middle" font-size="12" font-weight="700" fill="#2563EB">&#x2713;</text>
+    <text x="144" y="411" font-size="14" font-weight="600" fill="#0F172A">Strict Geometry &amp; Text Anchor Bounds</text>
+
+    <rect x="112" y="445" width="338" height="90" rx="10" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+    <text x="136" y="488" font-size="34" font-weight="800" fill="#2563EB">&lt; 4.8 ms</text>
+    <text x="136" y="516" font-size="13" font-weight="600" fill="#0F172A">Mean Compilation Latency (P99: 8.2ms)</text>
+
+    <!-- Right Column: 3-Stage Pipeline Diagram -->
+    <!-- Stage 1 -->
+    <rect x="490" y="240" width="195" height="200" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+    <rect x="510" y="260" width="76" height="24" rx="6" fill="#EFF6FF"/>
+    <text x="548" y="276" text-anchor="middle" font-size="11" font-weight="700" fill="#2563EB">STAGE 01</text>
+    <text x="510" y="312" font-size="16" font-weight="700" fill="#0F172A">Source Intake</text>
+    <text x="510" y="338" font-size="12" font-weight="400" fill="#64748B">
+      <tspan x="510" dy="0">Declarative input</tspan>
+      <tspan x="510" dy="18">parsing, semantic</tspan>
+      <tspan x="510" dy="18">token extraction</tspan>
+      <tspan x="510" dy="18">&amp; schema validation.</tspan>
+    </text>
+
+    <!-- Stage 2 -->
+    <rect x="715" y="240" width="195" height="200" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+    <rect x="735" y="260" width="76" height="24" rx="6" fill="#F0FDF4"/>
+    <text x="773" y="276" text-anchor="middle" font-size="11" font-weight="700" fill="#16A34A">STAGE 02</text>
+    <text x="735" y="312" font-size="16" font-weight="700" fill="#0F172A">Layout Solver</text>
+    <text x="735" y="338" font-size="12" font-weight="400" fill="#64748B">
+      <tspan x="735" dy="0">Deterministic coord</tspan>
+      <tspan x="735" dy="18">solver, typographic</tspan>
+      <tspan x="735" dy="18">metrics &amp; overlap</tspan>
+      <tspan x="735" dy="18">prevention rules.</tspan>
+    </text>
+
+    <!-- Stage 3 -->
+    <rect x="940" y="240" width="220" height="200" rx="12" fill="#EFF6FF" stroke="#3B82F6" stroke-width="1.5"/>
+    <rect x="960" y="260" width="76" height="24" rx="6" fill="#2563EB"/>
+    <text x="998" y="276" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">STAGE 03</text>
+    <text x="960" y="312" font-size="16" font-weight="700" fill="#0F172A">OpenXML Packaging</text>
+    <text x="960" y="338" font-size="12" font-weight="400" fill="#64748B">
+      <tspan x="960" dy="0">Direct DrawingML</tspan>
+      <tspan x="960" dy="18">generation, strict</tspan>
+      <tspan x="960" dy="18">p159:morph tagging</tspan>
+      <tspan x="960" dy="18">&amp; ZIP output.</tspan>
+    </text>
+
+    <!-- Telemetry Strip -->
+    <rect x="490" y="465" width="670" height="70" rx="10" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
+    <text x="520" y="498" font-size="14" font-weight="700" fill="#0F172A">System Telemetry:</text>
+    <text x="520" y="520" font-size="12" font-weight="500" fill="#64748B">Heap Footprint: 42 MB • Compilation Speed: 2,400 slides/min • DrawingML Conformance: 100%</text>
+  </g>
+</svg>
