@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" lang="en" font-family="sans-serif" data-pptx-page-role="content">
+  <rect id="bg" width="1280" height="720" fill="#0B132B"/>
+
+  <g id="header-block" data-pptx-bounds="80 30 1120 50">
+    <text x="80" y="65" fill="#F8FAFC" font-size="28" font-weight="bold">Cyclic Engine — 360° Continuous Execution Loop</text>
+  </g>
+
+  <rect id="nav-rail-bg" x="80" y="90" width="1120" height="44" rx="8" fill="#1C2541" data-pptx-role="decoration"/>
+
+  <g id="nav-labels" data-pptx-bounds="80 90 1120 44">
+    <text x="180" y="117" fill="#10B981" font-size="13" font-weight="bold" text-anchor="middle">01 INTAKE ✓</text>
+    <text x="420" y="117" fill="#10B981" font-size="13" font-weight="bold" text-anchor="middle">02 TRANSFORM ✓</text>
+    <text x="660" y="117" fill="#10B981" font-size="13" font-weight="bold" text-anchor="middle">03 VALIDATE ✓</text>
+    <text x="900" y="117" fill="#10B981" font-size="13" font-weight="bold" text-anchor="middle">04 DELIVER ✓</text>
+    <text x="1100" y="117" fill="#00B4D8" font-size="13" font-weight="bold" text-anchor="middle">LOOP [ACTIVE]</text>
+  </g>
+
+  <!-- Left Detail Card: Loop Completed -->
+  <g id="detail-card" data-pptx-bounds="80 160 300 480">
+    <rect x="80" y="160" width="300" height="480" rx="12" fill="#1C2541" stroke="#10B981" stroke-width="2"/>
+    <rect x="80" y="160" width="300" height="6" rx="3" fill="#10B981"/>
+    <text x="105" y="205" fill="#10B981" font-size="14" font-weight="bold">CYCLE COMPLETE</text>
+    <text x="105" y="240" fill="#F8FAFC" font-size="22" font-weight="bold">Continuous Loop</text>
+    <text x="105" y="280" fill="#94A3B8" font-size="14">Full 360° rotation completed<tspan x="105" dy="25">Zero cumulative position drift</tspan><tspan x="105" dy="25">All stages successfully linked</tspan></text>
+    <rect x="105" y="370" width="250" height="70" rx="6" fill="#0B132B"/>
+    <text x="120" y="400" fill="#64748B" font-size="12">STATUS</text>
+    <text x="120" y="425" fill="#10B981" font-size="16" font-weight="bold">Ready to Repeat Cycle</text>
+  </g>
+
+  <!-- Repeat and Return Buttons -->
+  <a href="#slide-2">
+    <g id="btn-repeat" data-pptx-bounds="105 520 250 44">
+      <rect x="105" y="520" width="250" height="44" rx="6" fill="#00B4D8"/>
+      <text x="230" y="547" fill="#FFFFFF" font-size="14" font-weight="bold" text-anchor="middle">Repeat Cycle (Phase 2) →</text>
+    </g>
+  </a>
+
+  <a href="#slide-1">
+    <g id="btn-start" data-pptx-bounds="105 580 250 44">
+      <rect x="105" y="580" width="250" height="44" rx="6" fill="#1C2541" stroke="#334155" stroke-width="1"/>
+      <text x="230" y="607" fill="#CBD5E1" font-size="14" font-weight="bold" text-anchor="middle">Return to Start (Phase 1) ↺</text>
+    </g>
+  </a>
+
+  <!-- Dial Track Decorations with stable IDs -->
+  <circle id="dial-track-outer" cx="640" cy="400" r="160" fill="none" stroke="#1E293B" stroke-width="20" data-pptx-role="decoration"/>
+  <circle id="dial-track-inner" cx="640" cy="400" r="140" fill="none" stroke="#334155" stroke-dasharray="6,6" stroke-width="1.5" data-pptx-role="decoration"/>
+
+  <!-- Stationary Cardinal Markers -->
+  <a href="#slide-1">
+    <g id="marker-p1" data-pptx-bounds="590 195 100 40">
+      <rect x="590" y="195" width="100" height="40" rx="6" fill="#10B981"/>
+      <text x="640" y="220" fill="#FFFFFF" font-size="13" font-weight="bold" text-anchor="middle">01 INTAKE ✓</text>
+    </g>
+  </a>
+
+  <a href="#slide-2">
+    <g id="marker-p2" data-pptx-bounds="810 380 110 40">
+      <rect x="810" y="380" width="110" height="40" rx="6" fill="#1C2541" stroke="#10B981" stroke-width="1"/>
+      <text x="865" y="405" fill="#10B981" font-size="13" font-weight="bold" text-anchor="middle">02 TRANSFORM ✓</text>
+    </g>
+  </a>
+
+  <a href="#slide-3">
+    <g id="marker-p3" data-pptx-bounds="585 570 110 40">
+      <rect x="585" y="570" width="110" height="40" rx="6" fill="#1C2541" stroke="#10B981" stroke-width="1"/>
+      <text x="640" y="595" fill="#10B981" font-size="13" font-weight="bold" text-anchor="middle">03 VALIDATE ✓</text>
+    </g>
+  </a>
+
+  <a href="#slide-4">
+    <g id="marker-p4" data-pptx-bounds="370 380 100 40">
+      <rect x="370" y="380" width="100" height="40" rx="6" fill="#1C2541" stroke="#10B981" stroke-width="1"/>
+      <text x="420" y="405" fill="#10B981" font-size="13" font-weight="bold" text-anchor="middle">04 DELIVER ✓</text>
+    </g>
+  </a>
+
+  <!-- Rotating Needle Assembly: Fixed pivot (640, 400), square bounds 480 240 320 320, rot=0 (full cycle reset) -->
+  <g id="asym-rotor" data-pptx-bounds="480 240 320 320" transform="rotate(0 640 400)">
+    <circle cx="640" cy="400" r="160" fill="none" opacity="0.01"/>
+    <polygon points="633,400 647,400 644,265 640,255 636,265" fill="#10B981"/>
+    <circle cx="640" cy="265" r="6" fill="#FFFFFF" stroke="#10B981" stroke-width="2"/>
+    <polygon points="636,400 644,400 642,435 638,435" fill="#0B132B"/>
+    <circle cx="640" cy="400" r="28" fill="#0B132B" stroke="#10B981" stroke-width="3"/>
+    <circle cx="640" cy="400" r="8" fill="#10B981"/>
+  </g>
+
+  <!-- Right Telemetry Panel -->
+  <g id="telemetry-panel" data-pptx-bounds="930 160 270 480">
+    <rect x="930" y="160" width="270" height="480" rx="12" fill="#1C2541" stroke="#334155" stroke-width="1"/>
+    <text x="955" y="200" fill="#F8FAFC" font-size="16" font-weight="bold">System Telemetry</text>
+    <text x="955" y="240" fill="#10B981" font-size="13" font-weight="bold">● Rotor Needle: 0° / 360°</text>
+    <text x="955" y="270" fill="#CBD5E1" font-size="13">Pivot Center: (640, 400)</text>
+    <text x="955" y="300" fill="#CBD5E1" font-size="13">Frame Extent: 320 x 320</text>
+    <text x="955" y="330" fill="#CBD5E1" font-size="13">Invariant chOff: Stable</text>
+    <rect x="955" y="360" width="220" height="1" fill="#334155"/>
+    <text x="955" y="390" fill="#94A3B8" font-size="13">Morph Target: Loop Closed</text>
+    <text x="955" y="420" fill="#94A3B8" font-size="13">Interpolation: Rigid Arc</text>
+    <text x="955" y="450" fill="#94A3B8" font-size="13">Frame Drift: 0.00 EMU</text>
+  </g>
+</svg>
