@@ -18,7 +18,7 @@
   "file_budgets": {
     "AGENTS.md": 3250,
     "skills/ppt-master/SKILL.md": 2500,
-    "skills/ppt-master/references/executor-base.md": 12000,
+    "skills/ppt-master/references/executor-base.md": 13000,
     "skills/ppt-master/references/executor-structured.md": 5500,
     "skills/ppt-master/references/executor-chart.md": 2000,
     "skills/ppt-master/references/executor-visualization.md": 1000,
@@ -35,7 +35,7 @@
     "skills/ppt-master/references/pptx-structure-interface.md": 3000,
     "skills/ppt-master/references/preset-shape-vocabulary.md": 2750,
     "skills/ppt-master/references/strategist.md": 9000,
-    "skills/ppt-master/references/plan-core.md": 7000,
+    "skills/ppt-master/references/plan-core.md": 7250,
     "skills/ppt-master/references/strategist-image.md": 3250,
     "skills/ppt-master/references/strategist-template.md": 2500,
     "skills/ppt-master/templates/design_spec_reference.md": 3500,
@@ -80,7 +80,8 @@
     "skills/ppt-master/templates/styles/README.md": 1250,
     "skills/ppt-master/templates/layouts/README.md": 1500,
     "skills/ppt-master/templates/decks/README.md": 1250,
-    "skills/ppt-master/templates/icons/README.md": 1750
+    "skills/ppt-master/templates/icons/README.md": 1750,
+    "skills/ppt-master/references/morph-recipes.md": 6500
   },
   "load_sets": {
     "bootstrap.routing": {
@@ -1230,6 +1231,61 @@
       ],
       "files": [],
       "max_tokens": 130000
+    },
+    "stage.generate.executor.morph": {
+      "description": "Incremental Executor context when continuous Morph animation, spatial camera motion, or traveling continuity carriers are planned.",
+      "scope": "incremental",
+      "include": [
+        "stage.generate.executor.flat"
+      ],
+      "files": [
+        "skills/ppt-master/references/morph-recipes.md"
+      ],
+      "max_tokens": 43000
+    },
+    "route.generate.planning.morph": {
+      "description": "Default Generate-PPTX planning context when cross-slide Morph continuity or multi-page scene choreography is planned.",
+      "scope": "cumulative",
+      "include": [
+        "route.generate.planning"
+      ],
+      "files": [
+        "skills/ppt-master/references/morph-recipes.md"
+      ],
+      "max_tokens": 135000
+    },
+    "route.generate.planning-template.morph": {
+      "description": "Default Generate-PPTX template planning context when cross-slide Morph continuity is planned.",
+      "scope": "cumulative",
+      "include": [
+        "route.generate.planning-template"
+      ],
+      "files": [
+        "skills/ppt-master/references/morph-recipes.md"
+      ],
+      "max_tokens": 145000
+    },
+    "route.generate.quick-generate.morph": {
+      "description": "Quick Generate profile with Morph cross-slide continuity and scene choreography reference resident.",
+      "scope": "cumulative",
+      "include": [
+        "route.generate.quick-generate"
+      ],
+      "files": [
+        "skills/ppt-master/references/morph-recipes.md"
+      ],
+      "max_tokens": 125000
+    },
+    "stage.generate.customize-animations.morph": {
+      "description": "Conditional object-animation stage when Morph transitions and sidecar pairing are tuned.",
+      "scope": "incremental",
+      "include": [
+        "stage.generate.customize-animations"
+      ],
+      "files": [
+        "skills/ppt-master/references/morph-recipes.md"
+      ],
+      "max_tokens": 50000
     }
   },
   "duplicates": {
@@ -2444,6 +2500,10 @@
       {
         "glob": "skills/ppt-master/scripts/docs/native-data.md",
         "reason": "Closed Chart/Table payload grammar for checker/exporter behavior; native-data-interface.md carries the canonical forms, and generation roles open this file only when a payload check fails."
+      },
+      {
+        "glob": "skills/ppt-master/examples/**/*.md",
+        "reason": "Portable reference examples; inspected as complete sample workspaces, not loaded as runtime generation prompt context."
       }
     ]
   }
