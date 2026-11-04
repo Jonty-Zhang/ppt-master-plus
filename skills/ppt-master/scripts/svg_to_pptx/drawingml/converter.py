@@ -582,6 +582,26 @@ def _extract_rotate_pivot(transform_str: str) -> tuple[float, float] | None:
     return cx, cy
 
 
+def _declared_bounds_emu(
+    elem: ET.Element,
+    ctx: ConvertContext,
+) -> tuple[float, float, float, float] | None:
+    """Return ``data-pptx-bounds`` as EMU edges, or None when absent or malformed."""
+    raw = elem.get('data-pptx-bounds')
+    if not raw:
+        return None
+    try:
+        x, y, width, height = (float(value) for value in raw.split())
+    except ValueError:
+        return None
+    return (
+        (x + ctx.translate_x) * EMU_PER_PX,
+        (y + ctx.translate_y) * EMU_PER_PX,
+        (x + width + ctx.translate_x) * EMU_PER_PX,
+        (y + height + ctx.translate_y) * EMU_PER_PX,
+    )
+
+
 def _txbody_metadata(elem: ET.Element) -> ET.Element | None:
     for child in elem:
         if (
@@ -1198,16 +1218,20 @@ def convert_g(elem: ET.Element, ctx: ConvertContext) -> ShapeResult | None:
         bool(transform)
         and _is_unit_axis_reflection(parse_transform_operations(transform))
     )
-    rotate_pivot = (
-        _extract_rotate_pivot(transform)
-        if (not native_subtree_active and bool(transform))
-        else None
+    # A pure rotation on a Morph-paired root group keeps one pivot-centred frame
+    # so adjacent endpoints differ only in ``rot``. Every other rotation stays
+    # on the matrix or pivot-compensation paths below.
+    morph_rigid_rotation = (
+        not native_subtree_active
+        and ctx.depth == 0
+        and elem_id in ctx.morph_group_ids
+        and elem.get('data-pptx-object') is None
+        and placeholder is None
+        and _extract_rotate_pivot(transform) is not None
     )
-    if rotate_pivot is not None:
-        angle_deg = parse_transform_operations(transform)[0][1][0]
     matrix_supported = (
         not native_subtree_active
-        and rotate_pivot is None
+        and not morph_rigid_rotation
         and bool(transform)
         and visual_children
         and (
@@ -1215,6 +1239,17 @@ def convert_g(elem: ET.Element, ctx: ConvertContext) -> ShapeResult | None:
             or unit_axis_reflection
         )
     )
+    # A pure ``rotate(angle [cx cy])`` falls through to the fallback path
+    # below (children are rect/text/path/etc. that don't consume a full
+    # matrix). Decomposing the matrix produces translation components
+    # (e, f) that encode the pivot — handing those to children would
+    # *double-translate* them because grpSp's own ``rot`` already
+    # rotates around the group's bounding-box centre. Skip the child
+    # translation here and apply pivot-centre compensation to ``a:off``
+    # below instead.
+    rotate_pivot = _extract_rotate_pivot(transform) if not matrix_supported else None
+    if rotate_pivot is not None:
+        angle_deg = parse_transform_operations(transform)[0][1][0]
     if matrix_supported:
         child_ctx = ctx.child(
             0, 0, 1.0, 1.0,
@@ -1348,9 +1383,10 @@ def convert_g(elem: ET.Element, ctx: ConvertContext) -> ShapeResult | None:
         len(child_results) == 1
         # A fallback rotation still belongs to this group. Keep its container
         # so the pivot compensation below runs even for a single text child.
-        and rotate_pivot is None
         and (matrix_supported or not angle_deg)
         and not explicit_native_group
+        # A paired rotation at 0 degrees must stay p:grpSp like its other endpoint.
+        and not morph_rigid_rotation
         and (
             not should_animate_group
             or logical_native_shape_group
@@ -1381,34 +1417,59 @@ def convert_g(elem: ET.Element, ctx: ConvertContext) -> ShapeResult | None:
     if min_x == float('inf'):
         return ShapeResult(xml='\n'.join(result.xml for result in child_results))
 
-    if rotate_pivot is not None:
+    group_x = int(min_x)
+    group_y = int(min_y)
+    group_w = max(int(max_x - min_x), 1)
+    group_h = max(int(max_y - min_y), 1)
+
+    # ``rotate(angle, cx, cy)`` rotates around the SVG pivot, but DrawingML
+    # grpSp ``rot`` always rotates around the group's own bbox centre. When
+    # those centres differ, the visual position drifts by exactly the
+    # translation a rotate-around-pivot equals. Compensate by offsetting the
+    # outer <a:off> only; <a:chOff> stays on the unshifted bbox so children
+    # (still at their original SVG positions because rotate_pivot suppressed
+    # the dx/dy translation above) remain aligned inside the group.
+    off_x = group_x
+    off_y = group_y
+    if morph_rigid_rotation:
+        # Children keep their unrotated coordinates, so a square frame centred
+        # on the pivot makes ``rot`` turn them around exactly that point. A
+        # declared data-pptx-bounds widens the frame, which keeps it identical
+        # across angles when counter-rotated children change the ink extent.
         cx_svg, cy_svg = rotate_pivot
         pivot_ex = (cx_svg + ctx.translate_x) * EMU_PER_PX
         pivot_ey = (cy_svg + ctx.translate_y) * EMU_PER_PX
-        # DrawingML grpSp rot rotates around the group frame centre.
-        # Symmetrize the group frame around the pivot so that the frame
-        # (off, ext, chOff, chExt) remains 100% invariant across consecutive Morph slides,
-        # ensuring only 'rot' changes and eliminating translation/scale drift.
-        r = max(
+        declared = _declared_bounds_emu(elem, ctx)
+        if declared is not None:
+            min_x = min(min_x, declared[0])
+            min_y = min(min_y, declared[1])
+            max_x = max(max_x, declared[2])
+            max_y = max(max_y, declared[3])
+        radius = max(
             abs(pivot_ex - min_x),
             abs(max_x - pivot_ex),
             abs(pivot_ey - min_y),
             abs(max_y - pivot_ey),
             EMU_PER_PX,
         )
-        group_x = int(round(pivot_ex - r))
-        group_y = int(round(pivot_ey - r))
-        group_w = int(round(2 * r))
-        group_h = int(round(2 * r))
-        off_x = group_x
-        off_y = group_y
-    else:
-        group_x = int(min_x)
-        group_y = int(min_y)
-        group_w = max(int(max_x - min_x), 1)
-        group_h = max(int(max_y - min_y), 1)
-        off_x = group_x
-        off_y = group_y
+        group_x = off_x = int(round(pivot_ex - radius))
+        group_y = off_y = int(round(pivot_ey - radius))
+        group_w = group_h = int(round(2 * radius))
+    elif rotate_pivot is not None and angle_deg:
+        cx_svg, cy_svg = rotate_pivot
+        pivot_ex = (cx_svg + ctx.translate_x) * EMU_PER_PX
+        pivot_ey = (cy_svg + ctx.translate_y) * EMU_PER_PX
+        bbox_cx = group_x + group_w / 2
+        bbox_cy = group_y + group_h / 2
+        theta = math.radians(angle_deg)
+        cos_t = math.cos(theta)
+        sin_t = math.sin(theta)
+        # Where the bbox centre lands after rotating around the pivot, minus
+        # where DrawingML's grpSp rot would leave it (i.e. unchanged).
+        delta_x = (bbox_cx - pivot_ex) * cos_t - (bbox_cy - pivot_ey) * sin_t + pivot_ex - bbox_cx
+        delta_y = (bbox_cx - pivot_ex) * sin_t + (bbox_cy - pivot_ey) * cos_t + pivot_ey - bbox_cy
+        off_x = int(round(group_x + delta_x))
+        off_y = int(round(group_y + delta_y))
 
     shapes_xml = '\n'.join(result.xml for result in child_results)
     group_id = (
@@ -1959,6 +2020,7 @@ def convert_svg_to_slide_shapes(
     image_quality: int = 85,
     native_objects: bool = False,
     animation_group_overrides: frozenset[str] | None = None,
+    morph_group_ids: frozenset[str] | None = None,
     theme_font_spec: ThemeFontSpec | None = None,
     theme_color_spec: ThemeColorSpec | None = None,
     primary_language: str | None = None,
@@ -1998,6 +2060,8 @@ def convert_svg_to_slide_shapes(
         animation_group_overrides: Explicit top-level SVG group ids from
             ``animations.json`` that override the legacy chrome-name fallback.
             Explicit structural layer/role/placeholder markers remain excluded.
+        morph_group_ids: Top-level SVG group ids this slide contributes to
+            ``morph.pairs``; a pure rotation on one keeps a pivot-centred frame.
         theme_font_spec: Optional major/minor theme-font contract. Matching SVG
             families emit DrawingML theme tokens instead of fixed typefaces.
         theme_color_spec: Optional context-aware theme-color contract. Exact
@@ -2368,6 +2432,7 @@ def convert_svg_to_slide_shapes(
         image_quality=image_quality,
         native_objects_enabled=native_objects,
         animation_group_overrides=animation_group_overrides or frozenset(),
+        morph_group_ids=morph_group_ids or frozenset(),
         trace_events=trace_events,
         theme_font_spec=theme_font_spec,
         theme_color_spec=theme_color_spec,

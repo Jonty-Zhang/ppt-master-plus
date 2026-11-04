@@ -109,6 +109,9 @@ class ConvertContext:
     # Explicit sidecar group ids may override the legacy chrome-name heuristic.
     # Explicit structural layer/role/placeholder markers remain non-animatable.
     animation_group_overrides: frozenset[str] = frozenset()
+    # Top-level group ids named by ``morph.pairs`` on this slide. Read only at
+    # depth 0, so child contexts do not inherit it.
+    morph_group_ids: frozenset[str] = frozenset()
     # Text-layout policy for positional tspans: preserve authored line breaks
     # in one frame, reflow them, or split them into independent frames.
     text_flow: str = TEXT_FLOW_PRESERVE

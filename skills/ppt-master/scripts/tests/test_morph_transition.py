@@ -73,6 +73,18 @@ class TestMorphTransitionNormalization(unittest.TestCase):
             self.assertEqual(effect, "morph")
             self.assertEqual(options, {"morph_by": "object"})
 
+    def test_case_insensitive_aliases_keep_implied_options(self) -> None:
+        """An alias must imply the same native options in any letter case."""
+        for alias in ("wedge", "wheel", "circle", "diamond", "plus", "strips"):
+            self.assertEqual(
+                normalize_transition_effect_request(alias.upper()),
+                normalize_transition_effect_request(alias),
+            )
+
+    def test_explicit_none_is_case_insensitive(self) -> None:
+        """Letter case must not change the explicit no-effect input."""
+        self.assertIsNone(normalize_transition_effect("NONE"))
+
 
 class TestMorphPairValidationWithAliases(unittest.TestCase):
     """Verify that pair validation and sidecar validation accept normalized Morph aliases."""
@@ -150,6 +162,39 @@ def _parse_dml_fragment(xml_fragment: str) -> ET.Element:
     return sp_tree[0]
 
 
+P_NS = "{http://schemas.openxmlformats.org/presentationml/2006/main}"
+A_NS = "{http://schemas.openxmlformats.org/drawingml/2006/main}"
+TWO_RECTS = (
+    '<rect x="40" y="10" width="20" height="10" fill="#000000"/>'
+    '<rect x="60" y="60" width="4" height="4" fill="#000000"/>'
+)
+# (rot, off x, off y, ext cx, ext cy) in px for TWO_RECTS under
+# scale(2) rotate(90 50 50): the rects' centres land on (170, 100) and (76, 124).
+SCALED_ROTATED_FRAMES = [
+    (5400000, 150, 90, 40, 20),
+    (5400000, 72, 120, 8, 8),
+]
+
+
+def _paired_context(elem: ET.Element, group_id: str | None = None) -> ConvertContext:
+    return ConvertContext(morph_group_ids=frozenset({group_id or elem.get("id")}))
+
+
+def _shape_frames(xml_fragment: str) -> list[tuple[int, int, int, int, int]]:
+    frames = []
+    for sp_pr in _parse_dml_fragment(xml_fragment).iter(f"{P_NS}spPr"):
+        xfrm = sp_pr.find(f"{A_NS}xfrm")
+        off, ext = xfrm.find(f"{A_NS}off"), xfrm.find(f"{A_NS}ext")
+        frames.append((
+            int(xfrm.get("rot", "0")),
+            round(int(off.get("x")) / 9525),
+            round(int(off.get("y")) / 9525),
+            round(int(ext.get("cx")) / 9525),
+            round(int(ext.get("cy")) / 9525),
+        ))
+    return frames
+
+
 class TestGroupRotationPreservation(unittest.TestCase):
 
     """Verify that pure group rotate transforms are preserved as DrawingML grpSp rot with invariant frames."""
@@ -164,7 +209,7 @@ class TestGroupRotationPreservation(unittest.TestCase):
             '</g>'
         )
         elem = ET.fromstring(svg_xml)
-        ctx = ConvertContext()
+        ctx = _paired_context(elem)
         res = convert_element(elem, ctx)
         self.assertIsNotNone(res)
         root = _parse_dml_fragment(res.xml)
@@ -185,7 +230,7 @@ class TestGroupRotationPreservation(unittest.TestCase):
         frames = []
         for angle in (0, 90, 180, 270):
             elem = ET.fromstring(template.format(angle=angle))
-            ctx = ConvertContext()
+            ctx = _paired_context(elem)
             res = convert_element(elem, ctx)
             self.assertIsNotNone(res)
             root = _parse_dml_fragment(res.xml)
@@ -230,11 +275,78 @@ class TestGroupRotationPreservation(unittest.TestCase):
             '</g>'
         )
         elem = ET.fromstring(svg_xml)
-        ctx = ConvertContext()
+        ctx = _paired_context(elem)
         res = convert_element(elem, ctx)
         self.assertIsNotNone(res)
         root = _parse_dml_fragment(res.xml)
         self.assertTrue(root.tag.endswith("grpSp"), "Single-child rotating group must not be flattened to p:sp")
+
+    def test_declared_bounds_keep_frame_invariant_under_counter_rotation(self) -> None:
+        """Counter-rotated children must not change the frame when bounds are declared."""
+        frames = set()
+        for angle in (0, 45, 90, 135, 180):
+            elem = ET.fromstring(
+                f'<g id="rotor" data-pptx-bounds="320 40 640 640" transform="rotate({angle} 640 360)">'
+                '<circle cx="640" cy="360" r="32" fill="#000000"/>'
+                f'<rect x="600" y="100" width="160" height="60" fill="#000000" transform="rotate({-angle} 680 130)"/>'
+                '</g>'
+            )
+            res = convert_element(elem, _paired_context(elem))
+            xfrm = _parse_dml_fragment(res.xml).find(f"{P_NS}grpSpPr/{A_NS}xfrm")
+            frames.add(tuple(
+                tuple(sorted(xfrm.find(f"{A_NS}{name}").attrib.items()))
+                for name in ("off", "ext", "chOff", "chExt")
+            ))
+        self.assertEqual(len(frames), 1)
+
+    def test_paired_id_only_applies_at_root(self) -> None:
+        """A nested group sharing a paired id must keep its ancestor's projection."""
+        elem = ET.fromstring(
+            '<g transform="scale(2)"><g id="rotor" transform="rotate(90 50 50)">'
+            f'{TWO_RECTS}</g></g>'
+        )
+        self.assertEqual(
+            _shape_frames(convert_element(elem, _paired_context(elem, "rotor")).xml),
+            SCALED_ROTATED_FRAMES,
+        )
+
+
+class TestUnpairedRotation(unittest.TestCase):
+    """Rotations outside morph.pairs must keep the ordinary export."""
+
+    def test_rotation_under_scaled_ancestor_keeps_position(self) -> None:
+        """A rotated group under a scaled ancestor must project through the ancestor."""
+        elem = ET.fromstring(
+            f'<g transform="scale(2)"><g transform="rotate(90 50 50)">{TWO_RECTS}</g></g>'
+        )
+        self.assertEqual(
+            _shape_frames(convert_element(elem, ConvertContext()).xml),
+            SCALED_ROTATED_FRAMES,
+        )
+
+    def test_rotation_about_distant_pivot_keeps_content_frame(self) -> None:
+        """A bare rotate must not grow the frame out to the origin."""
+        elem = ET.fromstring(
+            '<g id="badge" transform="rotate(5)">'
+            '<rect x="1000" y="600" width="100" height="50" fill="#000000"/>'
+            '<rect x="1100" y="600" width="50" height="50" fill="#000000"/>'
+            '</g>'
+        )
+        xfrm = _parse_dml_fragment(convert_element(elem, ConvertContext()).xml).find(
+            f"{P_NS}grpSpPr/{A_NS}xfrm"
+        )
+        self.assertGreater(int(xfrm.find(f"{A_NS}off").get("x")), 0)
+        self.assertLess(int(xfrm.find(f"{A_NS}ext").get("cx")), 150 * 9525 * 2)
+
+    def test_single_child_rotation_stays_flat(self) -> None:
+        """An unpaired single shape keeps its direct p:sp export."""
+        elem = ET.fromstring(
+            '<g><g transform="rotate(30 100 100)">'
+            '<rect x="50" y="50" width="100" height="100" fill="#000000"/>'
+            '</g></g>'
+        )
+        root = _parse_dml_fragment(convert_element(elem, ConvertContext()).xml)
+        self.assertTrue(root.tag.endswith("}sp"))
 
 
 if __name__ == "__main__":

@@ -69,8 +69,10 @@ Accepted compatibility and localized names remain valid at input boundaries (CLI
 | `pull` | `uncover` |
 | `wedge` | `clock` with `style: wedge` |
 | `wheel` | `clock` with `style: clockwise` |
-| `smooth` | `morph` with `morph_by: object` |
-| `平滑` | `morph` with `morph_by: object` |
+| `smooth` | `morph` |
+| `平滑` | `morph` |
+
+Input names are matched case-insensitively, including their implied options.
 
 Standard PresentationML effects use a direct `p:transition` carrier:
 
@@ -229,6 +231,12 @@ roster expectations are then refreshed. Package read-back requires:
 - Morph by object on the destination; and
 - no structural target, same-slide name collision, group/key conflict, or
   undeclared shared `!!` name on a Morph edge.
+
+A direct-root group named by a pair on the current slide and carrying a sole
+`rotate(angle [cx cy])` keeps a `p:grpSp` with a square frame centered on the
+pivot, including at 0 degrees, so adjacent endpoints differ only in `rot`. The
+frame radius covers the converted children and any `data-pptx-bounds` on the
+group. Unpaired rotations keep the ordinary matrix or pivot-compensation export.
 
 Morph without an explicit pair block retains PowerPoint's automatic matching
 behavior. Explicit pairing is generated-route authoring; source-preserving

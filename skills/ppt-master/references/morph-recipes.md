@@ -84,11 +84,10 @@ When animating a tab bar, progress rail, or navigation dock:
 ### 2.4 Fixed-Pivot Rigid Rotation Invariant
 
 To achieve mathematically rigid rotation around a fixed pivot without translation, squashing, or wobble:
-1. **Centered Group Frame**: In DrawingML, `<p:grpSp>` rotates around its own bounding box centre. When a group declares `transform="rotate(angle, cx, cy)"`, the DrawingML exporter establishes a pivot-centered, angle-invariant group frame:
-   $$\text{ext} = (2r, 2r), \quad \text{off} = (c_x - r, c_y - r)$$
+1. **Paired Rotation on Every Endpoint**: Put `transform="rotate(angle cx cy)"` on a direct-root `<g id>` named by `morph.pairs`, on every slide of the chain, including `rotate(0 cx cy)` at rest. The exporter gives only such groups the pivot-centered frame ([`pptx-transitions.md`](../scripts/docs/pptx-transitions.md) §3.2); an endpoint without the transform gets an ordinary content frame and drifts.
 2. **Frame Invariance**: Across consecutive slides ($P_1 \to P_2$), `off`, `ext`, `chOff`, and `chExt` remain identical; only `a:xfrm@rot` changes ($0 \to 5400000 \to 10800000 \to 16200000$).
 3. **Unrotated Child Coordinates**: Child shapes inside the rotating group maintain identical local coordinates across all slides.
-4. **Counter-Rotation for Upright Content**: If child text or cards must remain upright while orbiting, apply counter-rotation `transform="rotate(-angle, cx_child, cy_child)"` to the child elements.
+4. **Counter-Rotation for Upright Content**: If child text or cards must remain upright while orbiting, apply counter-rotation `transform="rotate(-angle, cx_child, cy_child)"` to the child elements. Counter-rotation changes the children's extent with the angle, so declare the same `data-pptx-bounds` on every endpoint, centered on the pivot and large enough to contain them at every angle; otherwise the frame varies between slides.
 
 ### 2.5 Text Frame Mechanics & `morph_by` Matching Modes
 
@@ -100,30 +99,11 @@ To achieve mathematically rigid rotation around a fixed pivot without translatio
 
 ### 2.6 Off-Canvas Staging Protocol
 
-Wholly off-canvas endpoints must follow [`shared-standards-core.md`](./shared-standards-core.md) §4.3:
-1. Enclosed in a top-level direct-root `<g id="...">`.
-2. Carry valid, space-separated root bounds: `data-pptx-bounds="x y width height"`.
-   - `width` and `height` must be strictly positive (`width > 0, height > 0`).
-   - `x` and `y` may be negative (e.g. staged off-canvas left $x = -400$ or top $y = -300$) or exceed canvas dimensions (e.g. staged off-canvas right $x \ge 1280$).
-3. Include the explicit marker: `data-pptx-morph-staging="true"`. This marker provides a checker overlap exemption for actors waiting outside the slide canvas.
-
-```xml
-<!-- Valid Staging Anchor on Slide 1 (Waiting off-canvas right to enter on Slide 2) -->
-<g id="incoming-panel" 
-   data-pptx-bounds="1320 120 400 500" 
-   data-pptx-morph-staging="true">
-  <rect x="1320" y="120" width="400" height="500" rx="8" fill="#1E293B" opacity="0.5"/>
-  <text x="1340" y="160" font-size="20" fill="#F8FAFC">Incoming Stage</text>
-</g>
-```
+[`shared-standards-core.md`](./shared-standards-core.md) §4.3 owns the staging syntax for wholly off-canvas endpoints. Stage an actor when its entrance or exit should read as travel across the slide edge; leave it unpaired when a cross-fade in place tells the story better.
 
 ### 2.7 Native Slide Hyperlinks vs Animation Triggers
 
-Per [`native-hyperlinks.md`](./native-hyperlinks.md):
-- Slide navigation (e.g. jumping between Hub and Chapter slides) uses canonical SVG hyperlinks:
-  `<a href="#slide-N"><g id="...">...</g></a>`
-- `trigger_shape` is PowerPoint's / WPS's in-slide `On Click of` animation trigger, **not** slide navigation. Do not confuse in-slide animation triggers with same-deck slide jumps.
-- Wrapping a group in `<a href="#slide-N">` preserves the group as the slide's top-level layout unit and animation anchor.
+[`native-hyperlinks.md`](./native-hyperlinks.md) §2 owns the canonical `<a href="#slide-N">` syntax for slide navigation. `trigger_shape` is an in-slide `On Click of` animation trigger, **not** slide navigation; use a hyperlink to jump between slides and a trigger to reveal something on the current one.
 
 ### 2.8 Static Chrome vs Explicit Motion
 
@@ -314,7 +294,7 @@ A compact card in a multi-card overview expands to a large detail modal or full-
 | **Cross-Container Pair** | Attempting to morph Shape (`p:sp`) into Picture (`p:pic`) | Abrupt 50% cross-fade; no vector interpolation | Maintain strict container parity (`sp <-> sp`, `grpSp <-> grpSp`) |
 | **GraphicFrame Target** | Attempting to morph native charts or tables | Exporter rejects pairing at preflight | Pair slide-local shapes or cards; leave chart frames static |
 | **Undeclared Adjacent Key** | Reusing a `!!` name on an adjacent Morph edge without declaring it | Exporter rejects undeclared adjacent key collision | Declare every shared key in the destination's `morph.pairs` block |
-| **Single-Child Flattening** | Unrotated group at $0^\circ$ flattening to `p:sp` | OOXML container type mismatch (`sp` vs `grpSp`) | Ensure rotating group retains `rotate_pivot` to suppress flattening |
+| **Unmarked Rest Endpoint** | A single-child rotor omits the transform at $0^\circ$ on one slide | OOXML container type mismatch (`sp` vs `grpSp`) | Write `rotate(0 cx cy)` on the rest endpoint and pair the group on every slide |
 
 ---
 

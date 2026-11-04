@@ -191,6 +191,7 @@ projects/*
 skills/ppt-master/templates/brands/*/exports/
 skills/ppt-master/templates/decks/*/exports/
 skills/ppt-master/templates/layouts/*/exports/
-examples/morph_demo/exports/
-examples/morph_demo/backup/
-examples/morph_demo/validation/
+# Reproducible example outputs (see each example's README)
+skills/ppt-master/examples/morph_*/exports/
+skills/ppt-master/examples/morph_*/backup/
+skills/ppt-master/examples/morph_*/validation/

@@ -32,7 +32,8 @@ This portable example demonstrates the **Rigid Wheel / Rotating Dial** transitio
 ## Verification Status
 
 - Structural compilation, container parity, DrawingML invariant frame emission, and quality checker: **VERIFIED PASS**.
-- Runtime native motion playback in Microsoft PowerPoint 2019+ and WPS Office: **UNVERIFIED** (pending dedicated native playback capture session).
+- Runtime native motion playback in WPS Office: **VERIFIED** (see below).
+- Runtime native motion playback in Microsoft PowerPoint: **UNVERIFIED**, including the direction of the 270-to-0 degree edge into Slide 5.
 
 ## Playback Verification
 
