@@ -18,6 +18,7 @@ Always-loaded Executor authority for flat SVG page authoring, shared by Default 
 | Structural notation — a fraction, radical, n-ary operator, matrix, or delimiter pair (flat arithmetic, percentages, and `O(n log n)`-style tokens stay ordinary text) | [`native-formula.md`](./native-formula.md) |
 | Any external or same-deck click hyperlink | [`native-hyperlinks.md`](./native-hyperlinks.md) |
 | Any placed image is `Status: Sourced` or its filename has an `image_sources.json` record | [`executor-web-image.md`](./executor-web-image.md), after `executor-image.md` |
+| Cross-slide Morph continuity, spatial camera, or traveling carriers | [`morph-recipes.md`](./morph-recipes.md) |
 | Effective Speaker Notes outcome is enabled after all SVG pages pass | [`executor-notes.md`](./executor-notes.md) |
 
 **Branch evaluation reads the information model**: evaluate branches from each object's actual information model, not only from a Chart/Table reference. A catalog family selects construction guidance, never native readiness. Page-local qualitative geometry never implies `pptx_structure.mode: structured`.
