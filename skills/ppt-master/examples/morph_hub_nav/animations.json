@@ -1,0 +1,128 @@
+{
+  "version": 1,
+  "slides": {
+    "01_hub": {
+      "transition": {
+        "effect": "morph",
+        "duration": 0.8
+      }
+    },
+    "02_topic1": {
+      "transition": {
+        "effect": "morph",
+        "duration": 0.8
+      },
+      "morph": {
+        "from": "01_hub",
+        "pairs": {
+          "active-pill-carrier": {
+            "from": "active-pill",
+            "to": "active-pill"
+          },
+          "card-alpha-carrier": {
+            "from": "card-alpha",
+            "to": "card-alpha"
+          },
+          "card-beta-carrier": {
+            "from": "card-beta",
+            "to": "card-beta"
+          },
+          "card-gamma-carrier": {
+            "from": "card-gamma",
+            "to": "card-gamma"
+          },
+          "title-alpha-carrier": {
+            "from": "title-alpha",
+            "to": "title-alpha"
+          },
+          "title-beta-carrier": {
+            "from": "title-beta",
+            "to": "title-beta"
+          },
+          "title-gamma-carrier": {
+            "from": "title-gamma",
+            "to": "title-gamma"
+          }
+        }
+      }
+    },
+    "03_topic2": {
+      "transition": {
+        "effect": "morph",
+        "duration": 0.8
+      },
+      "morph": {
+        "from": "02_topic1",
+        "pairs": {
+          "active-pill-carrier": {
+            "from": "active-pill",
+            "to": "active-pill"
+          },
+          "card-alpha-carrier": {
+            "from": "card-alpha",
+            "to": "card-alpha"
+          },
+          "card-beta-carrier": {
+            "from": "card-beta",
+            "to": "card-beta"
+          },
+          "card-gamma-carrier": {
+            "from": "card-gamma",
+            "to": "card-gamma"
+          },
+          "title-alpha-carrier": {
+            "from": "title-alpha",
+            "to": "title-alpha"
+          },
+          "title-beta-carrier": {
+            "from": "title-beta",
+            "to": "title-beta"
+          },
+          "title-gamma-carrier": {
+            "from": "title-gamma",
+            "to": "title-gamma"
+          }
+        }
+      }
+    },
+    "04_topic3": {
+      "transition": {
+        "effect": "morph",
+        "duration": 0.8
+      },
+      "morph": {
+        "from": "03_topic2",
+        "pairs": {
+          "active-pill-carrier": {
+            "from": "active-pill",
+            "to": "active-pill"
+          },
+          "card-alpha-carrier": {
+            "from": "card-alpha",
+            "to": "card-alpha"
+          },
+          "card-beta-carrier": {
+            "from": "card-beta",
+            "to": "card-beta"
+          },
+          "card-gamma-carrier": {
+            "from": "card-gamma",
+            "to": "card-gamma"
+          },
+          "title-alpha-carrier": {
+            "from": "title-alpha",
+            "to": "title-alpha"
+          },
+          "title-beta-carrier": {
+            "from": "title-beta",
+            "to": "title-beta"
+          },
+          "title-gamma-carrier": {
+            "from": "title-gamma",
+            "to": "title-gamma"
+          }
+        }
+      }
+    }
+  }
+}
