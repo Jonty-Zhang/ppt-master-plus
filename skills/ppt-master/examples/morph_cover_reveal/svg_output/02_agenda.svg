@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" lang="en-US" font-family="Segoe UI, sans-serif" data-pptx-page-role="content">
+  <rect id="slide-bg" x="0" y="0" width="1280" height="720" fill="#F8FAFC" data-pptx-role="background"/>
+
+  <!-- Hero Badge (morphed from Slide 1 center into top masthead badge) -->
+  <g id="hero-badge" data-pptx-bounds="80 36 290 52">
+    <rect x="80" y="36" width="290" height="52" rx="26" fill="#EFF6FF" stroke="#3B82F6" stroke-width="1.5"/>
+    <circle cx="110" cy="62" r="15" fill="#2563EB"/>
+    <text x="110" y="67" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">AI</text>
+    <text x="136" y="67" font-size="13" font-weight="700" fill="#1D4ED8">ENTERPRISE PLATFORM 2026</text>
+  </g>
+
+  <!-- Hero Title Block (morphed from Slide 1 center headline into header zone) -->
+  <g id="hero-title-block" data-pptx-bounds="390 32 810 40">
+    <text x="390" y="60" font-size="32" font-weight="700" fill="#0F172A">Intelligent Autonomous Systems</text>
+  </g>
+  <g id="agenda-caption" data-pptx-bounds="390 74 810 20">
+    <text x="390" y="86" font-size="14" font-weight="400" fill="#64748B">Three Architectural Pillars of the 2026 Deployment Stack</text>
+  </g>
+
+  <!-- Pillar 1: Pure Carrier Frame (Paired across slides for smooth geometric expansion) -->
+  <g id="pillar-card-1" data-pptx-role="decoration" data-pptx-bounds="80 130 350 530">
+    <rect x="80" y="130" width="350" height="530" rx="16" fill="#FFFFFF" stroke="#3B82F6" stroke-width="2"/>
+  </g>
+
+  <!-- Pillar 1: Identity Title (Paired across slides for spatial translation) -->
+  <g id="pillar-title-1" data-pptx-bounds="112 224 286 30">
+    <text x="112" y="244" font-size="22" font-weight="700" fill="#0F172A">Core Engine Stack</text>
+  </g>
+  <g id="pillar-badge-1" data-pptx-bounds="112 162 48 48">
+    <rect x="112" y="162" width="48" height="48" rx="12" fill="#EFF6FF"/>
+    <text x="136" y="193" text-anchor="middle" font-size="20" font-weight="700" fill="#2563EB">01</text>
+  </g>
+  <g id="pillar-caption-1" data-pptx-bounds="112 256 286 22">
+    <text x="112" y="270" font-size="14" font-weight="500" fill="#2563EB">High-Speed Vector Pipeline</text>
+  </g>
+
+  <!-- Pillar 1: Summary Body (Independent page-local content, native cross-fade in-place) -->
+  <g id="pillar-summary-1" data-pptx-bounds="112 300 286 295">
+    <text x="112" y="312" font-size="14" font-weight="400" fill="#64748B">
+      <tspan x="112" dy="0">Direct AST generation pipeline that</tspan>
+      <tspan x="112" dy="24">bypasses headless browser DOM to</tspan>
+      <tspan x="112" dy="24">achieve deterministic compilation</tspan>
+      <tspan x="112" dy="24">with zero rasterization overhead.</tspan>
+    </text>
+
+    <rect x="112" y="440" width="286" height="84" rx="10" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+    <text x="132" y="482" font-size="28" font-weight="800" fill="#2563EB">&lt; 5 ms</text>
+    <text x="132" y="506" font-size="12" font-weight="500" fill="#64748B">Average compilation latency</text>
+
+    <text x="112" y="580" font-size="13" font-weight="600" fill="#2563EB">Pillar 1 Focus: Expanded in next scene &#x2192;</text>
+  </g>
+
+  <!-- Pillar 2: Deterministic Morph -->
+  <g id="pillar-card-2" data-pptx-bounds="465 130 350 530">
+    <rect x="465" y="130" width="350" height="530" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <rect x="497" y="162" width="48" height="48" rx="12" fill="#F0FDF4"/>
+    <text x="521" y="193" text-anchor="middle" font-size="20" font-weight="700" fill="#16A34A">02</text>
+    
+    <text x="497" y="244" font-size="22" font-weight="700" fill="#0F172A">Deterministic Morph</text>
+    <text x="497" y="270" font-size="14" font-weight="500" fill="#16A34A">Native OpenXML Alignment</text>
+    
+    <text x="497" y="312" font-size="14" font-weight="400" fill="#64748B">
+      <tspan x="497" dy="0">Explicit adjacent pairing tokens</tspan>
+      <tspan x="497" dy="24">prevent heuristic shape mismatch,</tspan>
+      <tspan x="497" dy="24">enabling smooth camera transitions</tspan>
+      <tspan x="497" dy="24">across complex multi-card layouts.</tspan>
+    </text>
+
+    <rect x="497" y="440" width="286" height="84" rx="10" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+    <text x="517" y="482" font-size="28" font-weight="800" fill="#16A34A">99.99%</text>
+    <text x="517" y="506" font-size="12" font-weight="500" fill="#64748B">Transition pairing fidelity</text>
+  </g>
+
+  <!-- Pillar 3: Cloud Fabric Mesh -->
+  <g id="pillar-card-3" data-pptx-bounds="850 130 350 530">
+    <rect x="850" y="130" width="350" height="530" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <rect x="882" y="162" width="48" height="48" rx="12" fill="#FAF5FF"/>
+    <text x="906" y="193" text-anchor="middle" font-size="20" font-weight="700" fill="#9333EA">03</text>
+    
+    <text x="882" y="244" font-size="22" font-weight="700" fill="#0F172A">Cloud Fabric Mesh</text>
+    <text x="882" y="270" font-size="14" font-weight="500" fill="#9333EA">Global Distributed Runtime</text>
+    
+    <text x="882" y="312" font-size="14" font-weight="400" fill="#64748B">
+      <tspan x="882" dy="0">Multi-region active-active cluster</tspan>
+      <tspan x="882" dy="24">topology ensuring fault tolerance,</tspan>
+      <tspan x="882" dy="24">zero-trust identity security, and</tspan>
+      <tspan x="882" dy="24">instantaneous state replication.</tspan>
+    </text>
+
+    <rect x="882" y="440" width="286" height="84" rx="10" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+    <text x="902" y="482" font-size="28" font-weight="800" fill="#9333EA">100%</text>
+    <text x="902" y="506" font-size="12" font-weight="500" fill="#64748B">Editable native DrawingML</text>
+  </g>
+</svg>
