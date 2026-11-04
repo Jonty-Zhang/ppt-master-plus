@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "defaults": {
+    "transition": {
+      "effect": "morph",
+      "effect_options": {
+        "morph_by": "object"
+      },
+      "duration": 0.6
+    },
+    "animation": {
+      "effect": "none"
+    }
+  },
+  "slides": {
+    "01_cover": {
+      "transition": {
+        "effect": "morph",
+        "effect_options": {
+          "morph_by": "object"
+        },
+        "duration": 0.6
+      }
+    },
+    "02_agenda": {
+      "transition": {
+        "effect": "morph",
+        "effect_options": {
+          "morph_by": "object"
+        },
+        "duration": 0.6
+      },
+      "morph": {
+        "from": "01_cover",
+        "pairs": {
+          "hero-badge-carrier": {
+            "from": "hero-badge",
+            "to": "hero-badge"
+          },
+          "hero-title-carrier": {
+            "from": "hero-title-block",
+            "to": "hero-title-block"
+          }
+        }
+      }
+    },
+    "03_detail": {
+      "transition": {
+        "effect": "morph",
+        "effect_options": {
+          "morph_by": "object"
+        },
+        "duration": 0.6
+      },
+      "morph": {
+        "from": "02_agenda",
+        "pairs": {
+          "hero-badge-carrier": {
+            "from": "hero-badge",
+            "to": "hero-badge"
+          },
+          "hero-title-carrier": {
+            "from": "hero-title-block",
+            "to": "hero-title-block"
+          },
+          "pillar-card-1-carrier": {
+            "from": "pillar-card-1",
+            "to": "pillar-card-1"
+          },
+          "pillar-title-1-carrier": {
+            "from": "pillar-title-1",
+            "to": "pillar-title-1"
+          },
+          "pillar-badge-1-carrier": {
+            "from": "pillar-badge-1",
+            "to": "pillar-badge-1"
+          },
+          "pillar-caption-1-carrier": {
+            "from": "pillar-caption-1",
+            "to": "pillar-caption-1"
+          }
+        }
+      }
+    }
+  }
+}
