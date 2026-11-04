@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "slides": {
+    "01_phase1": {
+      "transition": {
+        "effect": "morph",
+        "duration": 0.8
+      }
+    },
+    "02_phase2": {
+      "transition": {
+        "effect": "morph",
+        "duration": 0.8
+      },
+      "morph": {
+        "from": "01_phase1",
+        "pairs": {
+          "rotor-carrier": {
+            "from": "asym-rotor",
+            "to": "asym-rotor"
+          }
+        }
+      }
+    },
+    "03_phase3": {
+      "transition": {
+        "effect": "morph",
+        "duration": 0.8
+      },
+      "morph": {
+        "from": "02_phase2",
+        "pairs": {
+          "rotor-carrier": {
+            "from": "asym-rotor",
+            "to": "asym-rotor"
+          }
+        }
+      }
+    },
+    "04_phase4": {
+      "transition": {
+        "effect": "morph",
+        "duration": 0.8
+      },
+      "morph": {
+        "from": "03_phase3",
+        "pairs": {
+          "rotor-carrier": {
+            "from": "asym-rotor",
+            "to": "asym-rotor"
+          }
+        }
+      }
+    },
+    "05_loop": {
+      "transition": {
+        "effect": "morph",
+        "duration": 0.8
+      },
+      "morph": {
+        "from": "04_phase4",
+        "pairs": {
+          "rotor-carrier": {
+            "from": "asym-rotor",
+            "to": "asym-rotor"
+          }
+        }
+      }
+    }
+  }
+}
