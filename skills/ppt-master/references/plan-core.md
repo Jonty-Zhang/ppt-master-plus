@@ -93,7 +93,7 @@ Once the roster and planned resources are known, recommend a cross-page motif or
 | Image composition | Image-as-canvas, editorial crop, collage, cutout, or meaningful focus / comparison / evidence units carry the page better than an adjacent rectangle |
 | Composable illustration family | Pages benefit from coherent reusable title/corner ornaments, dominant anchors, supporting figures, compact illustrated-icon cues, or accents mixing with text, shapes, photos, or lettering |
 | AI decorative lettering asset | Any stable display string — a complete long or multi-line title, cover hook, chapter word, place or product name, dish or exhibit name, year, hero number, pull quote, motif word — reads better with a material, dimensional, hand-rendered, or illustrative treatment than as ordinary text |
-| Motion | A section/state change or continuity across adjacent pages, or a reveal / emphasis / movement order within a page, clarifies sequence, causality, comparison, or hierarchy |
+| Motion | Section/state changes, cross-page continuity, or in-page reveal/emphasis/movement order clarify sequence, causality, comparison, or hierarchy; continuous multi-page choreography follows [`morph-recipes.md`](./morph-recipes.md) |
 
 Every communication job maps to a prepared resource or an information model; this menu never satisfies the Executor's per-page topology decision:
 
