@@ -81,7 +81,9 @@
     "skills/ppt-master/templates/layouts/README.md": 1500,
     "skills/ppt-master/templates/decks/README.md": 1250,
     "skills/ppt-master/templates/icons/README.md": 1750,
-    "skills/ppt-master/references/morph-recipes.md": 6500
+    "skills/ppt-master/references/morph-recipes.md": 6500,
+    "skills/ppt-master/references/user-preferences.md": 1500,
+    "skills/ppt-master/workflows/stages/deliver.md": 1250
   },
   "load_sets": {
     "bootstrap.routing": {
@@ -236,7 +238,8 @@
           "select": 20,
           "load_event": "strategist-selected-image-rendering-bases",
           "registry": "image-renderings"
-        }
+        },
+        "skills/ppt-master/references/user-preferences.md"
       ],
       "max_tokens": 130000
     },
@@ -286,7 +289,8 @@
           "select": 20,
           "load_event": "quick-selected-image-rendering-bases",
           "registry": "image-renderings"
-        }
+        },
+        "skills/ppt-master/references/user-preferences.md"
       ],
       "max_tokens": 115000
     },
@@ -889,7 +893,8 @@
       ],
       "files": [
         "skills/ppt-master/workflows/generate-pptx.md",
-        "skills/ppt-master/workflows/stages/resume-execute.md"
+        "skills/ppt-master/workflows/stages/resume-execute.md",
+        "skills/ppt-master/references/user-preferences.md"
       ],
       "max_tokens": 115000
     },
@@ -942,6 +947,14 @@
         "skills/ppt-master/workflows/stages/refine-spec.md"
       ],
       "max_tokens": 1500
+    },
+    "stage.generate.deliver": {
+      "description": "Final delivery runbook: font embedding and the one-folder package, run after export and every post-export stage.",
+      "scope": "incremental",
+      "files": [
+        "skills/ppt-master/workflows/stages/deliver.md"
+      ],
+      "max_tokens": 1250
     },
     "stage.generate.verify-charts": {
       "description": "Conditional chart-calibration gate.",

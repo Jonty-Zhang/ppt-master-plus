@@ -35,6 +35,7 @@ Maintainer-only inventory for adding, moving, or removing workflow documents. Ru
 | `live-preview` | Editor stage | [`stages/live-preview.md`](./stages/live-preview.md) | Generate preview / post-export |
 | `customize-animations` | Post-processing stage | [`stages/customize-animations.md`](./stages/customize-animations.md) | Generate conditional export |
 | `generate-audio` | Shared audio stage | [`stages/generate-audio.md`](./stages/generate-audio.md) | Generate / Edit Native |
+| `deliver` | Delivery stage | [`stages/deliver.md`](./stages/deliver.md) | Generate last step, after export and every post-export stage |
 | `failure-recovery` | Governance | [`governance/failure-recovery.md`](./governance/failure-recovery.md) | All routes |
 
 ## 3. Maintenance Rules
