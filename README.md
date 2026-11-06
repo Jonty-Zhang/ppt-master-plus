@@ -1,7 +1,7 @@
 # PPT Master Plus
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
-[![Based on](https://img.shields.io/badge/based%20on-hugohe3%2Fppt--master%20v6.7.2-blue)](https://github.com/hugohe3/ppt-master)
+[![Based on](https://img.shields.io/badge/based%20on-hugohe3%2Fppt--master%20v6.8.0-blue)](https://github.com/hugohe3/ppt-master)
 
 基于 [hugohe3/ppt-master](https://github.com/hugohe3/ppt-master) 的增强版：让 AI 从文档生成可编辑的原生 PowerPoint，并且**交付得干净、换台电脑也不掉字体**。
 
@@ -56,7 +56,7 @@ PowerPoint（Windows / macOS 16.17+）会读取嵌入字体；Keynote、Google S
 
 ## 安装
 
-需要 Python 3.10+。
+需要 Python 3.10–3.14。
 
 ```bash
 git clone https://github.com/Jonty-Zhang/ppt-master-plus.git

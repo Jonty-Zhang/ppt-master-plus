@@ -22,7 +22,7 @@ DOCX 转换会把内嵌图片素材抽取到配套素材目录，并写入图片
 
 ## Q: 把原图裁成指定比例，与按指定比例生成新图有什么区别？
 
-两者改变的对象不同。`crop=adaptive` 允许但不强制裁剪。Executor 可用 `meet` 完整显示原图，或用保护焦点内容的 `slice` 填满所选容器；两者都复用来源像素。AI 任务的 `aspect_ratio` 是新生成画布的要求。参考图编辑则通过独立的单图路径变换一张给定图片，不是 manifest 批处理。详见[图片资源清单规则](../../skills/ppt-master/references/strategist-image.md)、[Executor 裁剪政策](../../skills/ppt-master/references/executor-image.md)、[SVG 图片放置合同](../../skills/ppt-master/references/svg-image-embedding.md)与[图片 manifest schema](../../skills/ppt-master/references/image-generator.md)。
+两者改变的对象不同。`crop=adaptive` 允许但不强制裁剪。Executor 可用 `meet` 完整显示原图，或用保护焦点内容的 `slice` 填满所选容器；两者都复用来源像素。AI 任务的 `aspect_ratio` 是新生成画布的要求，可写任意 `W:H`；后端输出该模型允许的最接近尺寸，放置时再裁到所需形状。参考图编辑则通过独立的单图路径变换一张给定图片，不是 manifest 批处理。详见[图片资源清单规则](../../skills/ppt-master/references/strategist-image.md)、[Executor 裁剪政策](../../skills/ppt-master/references/executor-image.md)、[SVG 图片放置合同](../../skills/ppt-master/references/svg-image-embedding.md)与[图片 manifest schema](../../skills/ppt-master/references/image-generator.md)。
 
 ## Q: 只有一个主题或想法、没有任何资料，也能生成吗？
 
@@ -86,7 +86,7 @@ python3 skills/ppt-master/scripts/update_repo.py
 
 ## Q: 通过 Skill marketplace 安装后，还需要什么环境，应该在哪个目录运行？
 
-所有安装方式都需要 Python 3.10+，以及一个已安装、已鉴权、能够读写文件并执行 shell 命令的 Agent host。使用 `npx skills add hugohe3/ppt-master` 还要求本机有可用的 `npx` 命令，通常由 Node.js/npm 提供；仓库没有声明 Node/npm 的最低版本。Host 自带的 `/plugin install` 不走这条 `npx` 路径。
+所有安装方式都需要 Python 3.10–3.14，以及一个已安装、已鉴权、能够读写文件并执行 shell 命令的 Agent host。使用 `npx skills add hugohe3/ppt-master` 还要求本机有可用的 `npx` 命令，通常由 Node.js/npm 提供；仓库没有声明 Node/npm 的最低版本。Host 自带的 `/plugin install` 不走这条 `npx` 路径。
 
 Skill 安装目录与工作目录承担不同角色。Python 依赖从包含已安装 skill 的 `SKILL.md` 和 `requirements.txt` 的目录安装；Agent 则应从你自行选择的、可持久保存且可写的工作目录启动。Agent 会按需在这个工作目录下创建 `projects/`，不需要从 host 管理的 skill 缓存目录运行。详见[快速入门：配置安装目录与工作目录](./getting-started.md#配置安装目录与工作目录)和 skill 的[执行入口](../../skills/ppt-master/SKILL.md)。
 
@@ -130,9 +130,9 @@ python3 -c "import pptx; import fitz; print('All core dependencies OK')"
 
 ## Q: 能把 AI 生成的 PPT 效果图或截图还原成可编辑 PowerPoint 吗？
 
-可以。提供一张或多张图片，并要求把其中的页面还原为可编辑 PPTX，PPT Master 就会把请求路由到**图片还原为 PPTX**（[`image-to-pptx`](../../skills/ppt-master/workflows/profiles/image-to-pptx.md)）profile。该 profile 当前要求在 Codex 中使用；其他 Agent host 尚未适配，不对其行为作支持或承诺。图片还原为 PPTX 始终直接启用 Quick，不需要另行说明“快速模式”。它会先把所有输入规范化为一份有序页面画面清单，所以最终页数由实际页面画面决定，而不是由文件数决定。
+可以。提供一张或多张图片，并要求把其中的页面还原为可编辑 PPTX，PPT Master 就会把请求路由到**图片还原为 PPTX**（[`image-to-pptx`](../../skills/ppt-master/workflows/profiles/image-to-pptx.md)）profile。它需要能看图的 Agent host；需要生成的图层使用 host 自带的参考图编辑能力，或 PPT Master 的 `image_gen.py --reference-image`（OpenAI 或 Gemini 后端）。有哪个用哪个；两者都有时，OpenAI 负责去字，Gemini 负责抠出图层。图片还原为 PPTX 始终直接启用 Quick，不需要另行说明“快速模式”。它会先把所有输入规范化为一份有序页面画面清单，所以最终页数由实际页面画面决定，而不是由文件数决定。
 
-普通可见文字会还原为原生可编辑文本。Logo、图标、徽标和装饰图形在原图足够清晰时直接使用；像素过低时可由 Codex 根据参考图重建，但必须锁定身份、轮廓、比例、颜色和字标，禁止换成仅仅相似的替代物。图表、表格和数据图形禁止生成式重建：必须使用可核对数值的原生对象、精确源资产，或标记 `manual_required`。照片和插画场景至少拆成干净背景层与人物 / 前景层。多个带 padding 包围盒且互不重叠的对象可共用一次生成的底图（plate），再通过网格切片或 SVG 包围盒裁切拆成 PowerPoint 中的独立图片对象。AI 可以补全拆层后露出的隐藏场景像素，但不能改掉可见构图。把整页截图铺底、只叠少量可编辑元素，不算还原成功。
+所有可见文字都还原为原生可编辑文本（安装了可选的 `rapidocr` 时用 OCR 读取），底下是一张去掉文字的背景图；照片、人物等需要单独移动的对象拆成独立的图片图层，并逐一检查是否与原图对齐。Logo、图标、徽标和装饰图形在原图足够清晰时直接使用；像素过低时可通过参考图路径重建，但必须锁定身份、轮廓、比例、颜色和字标，禁止换成仅仅相似的替代物。图表、表格和数据图形禁止生成式重建：必须使用可核对数值的原生对象、精确源资产，或标记 `manual_required`。照片和插画场景至少拆成干净背景层与人物 / 前景层。多个带 padding 包围盒且互不重叠的对象可共用一次生成的底图（plate），再通过网格切片或 SVG 包围盒裁切拆成 PowerPoint 中的独立图片对象。AI 可以补全拆层后露出的隐藏场景像素，但不能改掉可见构图。把整页截图铺底、只叠少量可编辑元素，不算还原成功。
 
 ## Q: 生成的 PPT 可以编辑吗？
 
@@ -210,7 +210,8 @@ PPT Master 没有文档化的 `wireframe` 运行模式，也没有跨版本视�
 group；行内公式使用夹在普通文本 run 中的叶子
 `<tspan data-pptx-inline-formula="...">preview</tspan>`。矩阵、多行推导等
 高结构表达仍使用块级形式。原始 LaTeX 不能直接在 SVG 中显示，因此每个
-marker 都携带普通可见预览；原生导出会替换该预览，不增加图片兜底。
+marker 都携带普通可见预览；原生导出把它保留为原生形状兜底，供不支持 Office Math
+的客户端显示，不使用图片。
 
 前向编译覆盖 Microsoft 文档中 Microsoft 365 2606 / Mac 16.110 LaTeX
 档位与 2605 / 16.109 mhchem 档位明确点名的全部输入，包括符号、结构、环境、
@@ -224,8 +225,8 @@ fallback 保留。
 生成的 OMML 仍以 PowerPoint 2010+ 包为目标，可执行输入档位锁定到上述
 Microsoft 文档版本。仓库验证覆盖编译器行为、OMML 结构与 PPTX 打包，不等同于
 完整的 Microsoft 365 UI 显示 / 编辑认证。Keynote、WPS、LibreOffice 等非
-PowerPoint 客户端中的公式显示与编辑能力不在支持范围内；PPT Master 不为这些
-客户端附加公式图片兜底。
+PowerPoint 客户端中的公式显示与编辑能力不在支持范围内；这些客户端显示以普通
+形状和文字写入的 SVG 预览兜底，而不是可编辑公式。
 
 ## Q: 生成的页面可以带可点击链接吗？
 
@@ -278,11 +279,11 @@ python3 skills/ppt-master/scripts/svg_to_pptx.py <project> -a auto --animation-t
 **发挥完整实力的组合：**
 
 - **Claude 大上下文窗口**（推荐 ~100 万 token 级别）：大上下文让 Executor 在同一个会话里看到全部已生成页面，在不拆分运行的前提下保持整份 deck 的视觉一致性。上下文不足时被迫走拆分模式，两段之间会出现明显的风格漂移。
-- **AI 生图，推荐 `gpt-image-2`**（或同等质量）：配图水平是 deck 整体观感的最大变量。用占位级的网络图片和用真正贴合内容的 AI 生成图，视觉效果完全是两个量级。
+- **AI 生图，推荐 `gpt-image-2.5-sunburst`**（或同等质量）：配图水平是 deck 整体观感的最大变量。用占位级的网络图片和用真正贴合内容的 AI 生成图，视觉效果完全是两个量级。
 
-如果你看到的效果差强人意，先对照以下几点检查你的配置，再下结论：用的什么模型？上下文开了多大？有没有接入图片生成 API？同样的工作流，Claude Opus 配 100 万 token 上下文配 `gpt-image-2` 的结果，和小参数开源模型配零配置的结果，是截然不同的体验。
+如果你看到的效果差强人意，先对照以下几点检查你的配置，再下结论：用的什么模型？上下文开了多大？有没有接入图片生成 API？同样的工作流，Claude Opus 配 100 万 token 上下文配 `gpt-image-2.5-sunburst` 的结果，和小参数开源模型配零配置的结果，是截然不同的体验。
 
-> **没有 Claude 渠道？** 本项目赞助商 [PackyCode](https://www.packyapi.ai/register?aff=ppt-master) 提供 Claude 及其他主流模型的按量付费接入——无需订阅，无需境外信用卡，支持国内支付，开箱即用。充值时填写优惠码 **`ppt-master`** 享 9 折。
+> **没有 Claude 渠道？** 本项目赞助商 [PackyCode](https://www.packyapi.ai/register?aff=ppt-master)、[APIKEY.FAN](https://apikey.fan/register?aff=PPT-MASTER)、[RunAPI](https://runapi.host/register?aff=WMLJ) 与 [ModelGo](https://modelgo.ai/?utm_source=ppt-master&utm_medium=sponsorship&utm_content=readme03&campaign_id=ppt-master-github&ad_group_id=readme03) 均提供 Claude 及其他主流模型的按量付费接入——无需订阅，支持国内支付，开箱即用。各家专属优惠见 [README](../../README_CN.md)。
 
 最后再说一句：这是一个免费、个人维护的开源项目。合用就用，能帮到你我很高兴；不合用，换个工具就好。真诚的反馈与建议始终欢迎——这也是项目一点点变好的方式。
 

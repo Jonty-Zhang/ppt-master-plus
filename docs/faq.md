@@ -22,7 +22,7 @@ These boundaries are defined by the [image-generation contract](../skills/ppt-ma
 
 ## Q: What is the difference between cropping an image and generating one at a requested aspect ratio?
 
-They change different things. `crop=adaptive` permits but never requires cropping. Executor may use `meet` to show the complete source or a focal-safe `slice` to fill the chosen container; both reuse source pixels. An AI job's `aspect_ratio` requests a newly generated canvas. A reference edit transforms one supplied image through the separate single-image path; it is not a manifest batch operation. See the [image resource-list rules](../skills/ppt-master/references/strategist-image.md), [Executor crop policy](../skills/ppt-master/references/executor-image.md), [SVG image placement contract](../skills/ppt-master/references/svg-image-embedding.md), and [image manifest schema](../skills/ppt-master/references/image-generator.md).
+They change different things. `crop=adaptive` permits but never requires cropping. Executor may use `meet` to show the complete source or a focal-safe `slice` to fill the chosen container; both reuse source pixels. An AI job's `aspect_ratio` requests a newly generated canvas of any `W:H`; the backend outputs the nearest size its model allows, and placement crops to the requested shape. A reference edit transforms one supplied image through the separate single-image path; it is not a manifest batch operation. See the [image resource-list rules](../skills/ppt-master/references/strategist-image.md), [Executor crop policy](../skills/ppt-master/references/executor-image.md), [SVG image placement contract](../skills/ppt-master/references/svg-image-embedding.md), and [image manifest schema](../skills/ppt-master/references/image-generator.md).
 
 ## Q: Can I generate a deck with just a topic, no source materials?
 
@@ -87,7 +87,7 @@ For users in mainland China who cannot reach GitHub reliably, the complete repos
 
 ## Q: I installed from a skill marketplace. What prerequisites and working directory do I need?
 
-All installation paths require Python 3.10+ and an installed, authenticated agent host that can read and write files and run shell commands. The `npx skills add hugohe3/ppt-master` path additionally requires a working `npx` command, normally supplied with Node.js/npm; the repository does not declare a Node/npm minimum version. A host's own `/plugin install` command does not use that `npx` path.
+All installation paths require Python 3.10–3.14 and an installed, authenticated agent host that can read and write files and run shell commands. The `npx skills add hugohe3/ppt-master` path additionally requires a working `npx` command, normally supplied with Node.js/npm; the repository does not declare a Node/npm minimum version. A host's own `/plugin install` command does not use that `npx` path.
 
 The installed skill directory and your working folder are different roles. Install Python dependencies from the directory that contains the installed skill's `SKILL.md` and `requirements.txt`, but start the agent in a separate persistent, writable working folder of your choice. The agent creates that folder's `projects/` directory as needed; you do not need to run it from the host-managed skill cache. See [Getting Started: Set up the installation and working folders](./getting-started.md#set-up-the-installation-and-working-folders) and the skill's [execution entry point](../skills/ppt-master/SKILL.md).
 
@@ -131,9 +131,9 @@ Be clear on what this buys you: **web search only finds *a* relevant, downloadab
 
 ## Q: Can I turn AI-generated slide mockups or screenshots into editable PowerPoint slides?
 
-Yes. Provide one or more images and ask to reconstruct the represented pages as an editable PPTX; PPT Master routes that request to the **Image to PPTX** ([`image-to-pptx`](../skills/ppt-master/workflows/profiles/image-to-pptx.md)) profile. It currently requires Codex. Other agent hosts have not been adapted for this profile, so their behavior is not supported or promised. Image to PPTX always activates Quick; you do not need to ask for Quick separately. It first normalizes every input into one ordered page-frame roster, so slide count follows represented pages rather than file count.
+Yes. Provide one or more images and ask to reconstruct the represented pages as an editable PPTX; PPT Master routes that request to the **Image to PPTX** ([`image-to-pptx`](../skills/ppt-master/workflows/profiles/image-to-pptx.md)) profile. It needs an agent host that can view images; any layer that has to be generated uses the host's own reference-image editing or PPT Master's `image_gen.py --reference-image` with an OpenAI or Gemini backend — whichever is available; with both, OpenAI removes text and Gemini extracts layers. Image to PPTX always activates Quick; you do not need to ask for Quick separately. It first normalizes every input into one ordered page-frame roster, so slide count follows represented pages rather than file count.
 
-Ordinary visible text is rebuilt as native editable text. Logos, icons, badges, and decorative graphics use the source directly when it is adequate; when it is too low-resolution, Codex may reconstruct them from the reference, but identity, silhouette, proportions, colors, and wordmarks must remain fixed, and a merely similar substitute is forbidden. Charts, tables, and data graphics are never reconstructed generatively: they must be native objects with verifiable values, exact source assets, or marked `manual_required`. Photo and illustration scenes are rebuilt into at least a clean base plus subject or foreground layers. Multiple non-overlapping objects with padded bounding boxes may share one generated plate and then become independent PowerPoint picture objects through grid slicing or SVG bounding-box crops. AI may reconstruct pixels hidden by the separated layers, but it must not redesign the visible composition. A whole-slide screenshot skin with token editable overlays does not count as reconstruction.
+Every visible string is rebuilt as native editable text — read with OCR when the optional `rapidocr` package is installed — over a text-removed background. Photos, characters, and other objects that should move on their own become separate picture layers, each checked against the page for alignment; logos, icons, badges, and decorative graphics use the source directly when it is adequate; when it is too low-resolution, the reference-image path may reconstruct them from the reference, but identity, silhouette, proportions, colors, and wordmarks must remain fixed, and a merely similar substitute is forbidden. Charts, tables, and data graphics are never reconstructed generatively: they must be native objects with verifiable values, exact source assets, or marked `manual_required`. Photo and illustration scenes are rebuilt into at least a clean base plus subject or foreground layers. Multiple non-overlapping objects with padded bounding boxes may share one generated plate and then become independent PowerPoint picture objects through grid slicing or SVG bounding-box crops. AI may reconstruct pixels hidden by the separated layers, but it must not redesign the visible composition. A whole-slide screenshot skin with token editable overlays does not count as reconstruction.
 
 ## Q: Can I edit the generated presentations?
 
@@ -212,8 +212,8 @@ assets. A block uses a formula group; inline math uses a leaf
 `<tspan data-pptx-inline-formula="...">preview</tspan>` among ordinary text
 runs. Matrices, multiline derivations, and other high-structure expressions
 remain blocks. Raw LaTeX does not render in SVG, so each marker carries an
-ordinary visible preview that native export replaces without adding an image
-fallback.
+ordinary visible preview; native export keeps it as a native-shape fallback
+for clients without Office Math, never an image.
 
 Forward compilation covers every explicitly named input in Microsoft's
 documented Microsoft 365 2606 / Mac 16.110 LaTeX profile and 2605 / 16.109
@@ -231,8 +231,8 @@ executable source profile is pinned to the Microsoft documentation versions
 above. Repository verification covers compiler behavior, OMML structure, and
 PPTX packaging rather than complete Microsoft 365 UI rendering/editability
 certification. Formula display and editability in Keynote, WPS, LibreOffice,
-and other non-PowerPoint clients are not supported; PPT Master does not add an
-image fallback for them.
+and other non-PowerPoint clients are not supported; those clients show the
+SVG preview fallback as ordinary shapes and text, not editable math.
 
 ## Q: Can generated slides contain clickable links?
 
@@ -290,11 +290,11 @@ No. PPT Master is a presentation workflow, not a model or a complete agent. It s
 **The full-power combination:**
 
 - **Claude with a large context window** (ideally ~1M tokens): a large context window lets the Executor see every previously generated page in the same session, maintaining visual consistency across the entire deck without splitting runs. Smaller windows force split-mode execution, which introduces visible style drift between phases.
-- **AI image generation with `gpt-image-2`** (or similar): placeholder-grade stock images are the single biggest reason decks look generic. Replacing them with on-brand AI-generated illustrations changes the perceived quality immediately.
+- **AI image generation with `gpt-image-2.5-sunburst`** (or similar): placeholder-grade stock images are the single biggest reason decks look generic. Replacing them with on-brand AI-generated illustrations changes the perceived quality immediately.
 
-If the results you've seen look mediocre, check your setup before concluding anything about the tool: What model? What context size? Was image generation enabled? PPT Master + Claude Opus at 1M context + `gpt-image-2` images is a genuinely different experience from PPT Master + a small open-source model with no image API configured.
+If the results you've seen look mediocre, check your setup before concluding anything about the tool: What model? What context size? Was image generation enabled? PPT Master + Claude Opus at 1M context + `gpt-image-2.5-sunburst` images is a genuinely different experience from PPT Master + a small open-source model with no image API configured.
 
-> **No Claude access?** Project sponsor [PackyCode](https://www.packyapi.ai/register?aff=ppt-master) provides pay-as-you-go access to Claude and other models — no subscription, no overseas card required. Use promo code **`ppt-master`** for 10% off.
+> **No Claude access?** Project sponsors [PackyCode](https://www.packyapi.ai/register?aff=ppt-master), [APIKEY.FAN](https://apikey.fan/register?aff=PPT-MASTER), [RunAPI](https://runapi.host/register?aff=WMLJ) and [ModelGo](https://modelgo.ai/?utm_source=ppt-master&utm_medium=sponsorship&utm_content=readme03&campaign_id=ppt-master-github&ad_group_id=readme03) provide pay-as-you-go access to Claude and other models — no subscription required. See the [README](../README.md) for each sponsor's exclusive perks.
 
 One last thing: this is a free, solo-maintained open-source project. If it fits your needs, use it — I'm glad it helps; if it doesn't, pick another tool. Sincere feedback and suggestions are always welcome, because that's how the project gets a little better over time.
 
