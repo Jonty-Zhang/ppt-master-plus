@@ -83,7 +83,8 @@
     "skills/ppt-master/templates/icons/README.md": 1750,
     "skills/ppt-master/references/morph-recipes.md": 6500,
     "skills/ppt-master/references/user-preferences.md": 1500,
-    "skills/ppt-master/workflows/stages/deliver.md": 1250
+    "skills/ppt-master/workflows/stages/deliver.md": 1250,
+    "skills/ppt-master/workflows/stages/plus-intake.md": 2500
   },
   "load_sets": {
     "bootstrap.routing": {
@@ -955,6 +956,14 @@
         "skills/ppt-master/workflows/stages/deliver.md"
       ],
       "max_tokens": 1250
+    },
+    "stage.generate.plus-intake": {
+      "description": "Plus opening questions, page-copy confirmation, and run record; read before the full Skill's Generate runtime.",
+      "scope": "incremental",
+      "files": [
+        "skills/ppt-master/workflows/stages/plus-intake.md"
+      ],
+      "max_tokens": 2500
     },
     "stage.generate.verify-charts": {
       "description": "Conditional chart-calibration gate.",
