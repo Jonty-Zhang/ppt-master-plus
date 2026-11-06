@@ -106,13 +106,24 @@ DEFERRED_CANVAS_MESSAGE = (
 )
 
 
-def _is_project_tree(source_path: Path) -> bool:
+def _projects_root_for(project_dir: Path) -> Path:
+    """Return the projects/ folder that holds `project_dir`.
+
+    `init` puts projects under the caller's working folder when the Skill is
+    installed outside a repository checkout, so the shared scratch area for
+    research pairs and converted sources is that folder, not PROJECTS_ROOT.
+    """
+    parent = project_dir.resolve().parent
+    return parent if parent.name == "projects" else PROJECTS_ROOT
+
+
+def _is_project_tree(source_path: Path, projects_root: Path | None = None) -> bool:
     """Return whether a file under projects/ sits inside an initialized project.
 
     A sibling directory such as ``projects/<slug>_web_sources/`` (topic-research
     output) is scratch material, not another project's tree.
     """
-    projects_root = PROJECTS_ROOT.resolve()
+    projects_root = (projects_root or PROJECTS_ROOT).resolve()
     source_path = source_path.resolve()
     try:
         relative = source_path.relative_to(projects_root)
@@ -871,6 +882,7 @@ class ProjectManager:
             raise ValueError("At least one source path or URL is required")
 
         sources_dir = self._source_dir(project_dir)
+        projects_root = _projects_root_for(project_dir)
         existing_markdown = {path.resolve() for path in sources_dir.glob("*.md")}
         reserved_markdown: set[Path] = set()
         summary: dict[str, list[str]] = {
@@ -962,15 +974,15 @@ class ProjectManager:
                 summary["skipped"].append(f"{item}: directories are not supported")
                 continue
 
-            inside_projects = is_within_path(source_path, PROJECTS_ROOT)
+            inside_projects = is_within_path(source_path, projects_root)
             # A file inside another project's tree (projects/<other>/...) is
             # that project's material: taking it by default emptied a finished
             # project's images/ once. Copy unless --move is explicit.
             inside_other_project = (
                 inside_projects
                 and not is_within_path(source_path, project_dir.resolve())
-                and source_path.resolve().parent != PROJECTS_ROOT.resolve()
-                and _is_project_tree(source_path)
+                and source_path.resolve().parent != projects_root.resolve()
+                and _is_project_tree(source_path, projects_root)
             )
             if copy:
                 effective_move = False
@@ -987,7 +999,7 @@ class ProjectManager:
                 effective_move = False
             if move and not inside_projects:
                 print(
-                    f"note: {source_path} is outside {PROJECTS_ROOT}; copied "
+                    f"note: {source_path} is outside {projects_root}; copied "
                     f"(not moved). Only sources under projects/ may be moved.",
                     file=sys.stderr,
                 )
@@ -1028,7 +1040,7 @@ class ProjectManager:
                 if (
                     effective_move
                     and web_sources.is_dir()
-                    and web_sources.resolve().parent == PROJECTS_ROOT.resolve()
+                    and web_sources.resolve().parent == projects_root.resolve()
                 ):
                     # topic-research fetches pages beside its pair under
                     # projects/; they travel with the pair as provenance
@@ -1219,7 +1231,7 @@ class ProjectManager:
         # its files move into the target project. Every other location is copied
         # and remains untouched, even when the caller passes --move.
         for directory in supplied_dirs:
-            if copy or not is_within_path(directory, PROJECTS_ROOT):
+            if copy or not is_within_path(directory, projects_root):
                 continue
             if directory.is_dir() and not any(directory.iterdir()):
                 try:

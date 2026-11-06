@@ -114,6 +114,18 @@ def _guide(title: str, kept: list[str]) -> str:
     return "\n".join(lines)
 
 
+def _sweep_projects(projects: Path) -> str:
+    """Remove empty leftovers under projects/ and report what still remains."""
+    for child in sorted(projects.iterdir()):
+        if child.is_dir() and not _files(child):
+            shutil.rmtree(child)
+    left = [p.name for p in sorted(projects.iterdir()) if p.name not in _JUNK]
+    if not left:
+        shutil.rmtree(projects)
+        return " and the empty projects/ folder"
+    return "\n  projects/ still holds: " + ", ".join(left)
+
+
 def _pick_pptx(project: Path, explicit: Path | None) -> Path:
     if explicit:
         if not explicit.is_file():
@@ -219,9 +231,8 @@ def pack(args: argparse.Namespace) -> int:
         shutil.rmtree(project)
         removed = f"removed working project ({count} files, {size / 1024 / 1024:.1f} MB)"
         parent = project.parent
-        if parent.name == "projects" and all(p.name in _JUNK for p in parent.iterdir()):
-            shutil.rmtree(parent)
-            removed += " and the empty projects/ folder"
+        if parent.name == "projects":
+            removed += _sweep_projects(parent)
 
     print(f"[DELIVER] {delivery}")
     print(f"  {final_pptx.name}  ({final_pptx.stat().st_size / 1024 / 1024:.1f} MB, from {source_pptx.name})")

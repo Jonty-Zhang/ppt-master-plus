@@ -35,7 +35,7 @@ python3 ${SKILL_DIR}/scripts/deliver.py pack <project_path> --title "<deck title
 - Packing the same title again replaces the `.pptx` and `制作文件/` in place; other files the user put in the delivery folder stay.
 - `--keep-workdir` only when another stage in this conversation still needs the working project.
 
-**Success criterion**: the `[DELIVER]` receipt lists the delivery folder, the `.pptx`, the `制作文件/` contents, and the removed working project. Report the delivery folder path to the user — not an `exports/` path.
+**Success criterion**: the `[DELIVER]` receipt lists the delivery folder, the `.pptx`, the `制作文件/` contents, and the removed working project. Pack also removes empty folders left under `projects/`; when it reports `projects/ still holds`, name those leftovers to the user instead of deleting them. Report the delivery folder path to the user — not an `exports/` path.
 
 ## Unpack (revision of a delivered deck)
 

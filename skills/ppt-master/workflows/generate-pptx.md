@@ -35,12 +35,12 @@ description: Default Generate PPTX authority for source intake, planning, SVG au
 
 | User provides | Action |
 |---|---|
-| PDF / DOCX / Office document / XLSX / XLSM / PPTX / EPUB / HTML / LaTeX / RST / web URL | `python3 ${SKILL_DIR}/scripts/source_to_md.py <file_or_URL_or_dir> [<file_or_URL_or_dir> ...]` |
+| PDF / DOCX / Office document / XLSX / XLSM / PPTX / EPUB / HTML / LaTeX / RST / web URL | `python3 ${SKILL_DIR}/scripts/source_to_md.py <file_or_URL_or_dir> [<file_or_URL_or_dir> ...] -o projects/<slug>_intake/` |
 | CSV / TSV | Read directly as a plain-text table source; a wide public dataset (World Bank, OECD, Eurostat) — a converted workbook too — is first sliced to the needed rows and columns with a short Python snippet, never read whole; the same read-only snippet over the archived source may fill chart and table values, adding no figure the source lacks |
 | Markdown | Read directly |
 | Topic only | Run [`topic-research`](stages/topic-research.md) first and use its research pair as source; Step 2 imports the pair without expanding the facts JSON's URLs |
 
-The dispatcher writes standard Markdown plus a conversion profile beside each source. Use `-t <type>` only when detection is ambiguous and `-o` only when a specific output location is required (an output directory for multiple or directory inputs). PPTX sources also receive standard intake in `<project>/analysis/` after Step 2. Backend details: [`conversion.md`](../scripts/docs/conversion.md); its § Image Orientation Review applies when the user requests correction, converted text asks for rotated viewing, or a downloaded asset is visibly sideways (never launch its legacy HTML tool).
+The dispatcher writes standard Markdown plus a conversion profile into `projects/<slug>_intake/`, never beside the user's files; Step 2 imports both locations and moves the intake out of `projects/`. Use `-t <type>` only when detection is ambiguous. PPTX sources also receive standard intake in `<project>/analysis/` after Step 2. Backend details: [`conversion.md`](../scripts/docs/conversion.md); its § Image Orientation Review applies when the user requests correction, converted text asks for rotated viewing, or a downloaded asset is visibly sideways (never launch its legacy HTML tool).
 
 **Sufficiency test**: after reading direct and converted content, run [`topic-research`](stages/topic-research.md) only for gaps where the requested outcome would otherwise require inventing, omitting, or leaving unsupported an externally verifiable claim. A closed corpus stays within the supplied material; file presence or length is irrelevant. Research records facts and adopted URLs in its pair; Step 2 fetches no adopted page, and Step 5 acquires only Strategist-selected assets after final confirmation.
 
