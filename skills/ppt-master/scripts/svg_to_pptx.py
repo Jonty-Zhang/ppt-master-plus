@@ -22,10 +22,12 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from attribution_guard import require_skill_integrity
 from console_encoding import configure_utf8_stdio
+from plus_run import export_gate
 from svg_to_pptx import main
 
 configure_utf8_stdio()
 
 if __name__ == '__main__':
     require_skill_integrity()
+    export_gate(sys.argv[1:])
     raise SystemExit(main())

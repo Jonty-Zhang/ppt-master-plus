@@ -390,6 +390,9 @@ class NativeTableMixedRunAuditTests(unittest.TestCase):
         svg_dir = project / "svg_output"
         svg_dir.mkdir(parents=True)
         (svg_dir / "01.svg").write_text(svg, encoding="utf-8")
+        # Plus export gate: a Quick export needs a ppt-master-flash run record.
+        (project / "plus_run.json").write_text(
+            '{"format": 1, "entry": "flash", "route": "generate"}', encoding="utf-8")
         commands = [
             ["stamp_native_fallbacks.py", str(svg_dir), "--write"],
             ["svg_quality_checker.py", str(project), "--canonical-authoring", "--stage", "final",

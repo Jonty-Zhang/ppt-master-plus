@@ -10,7 +10,8 @@ Turns a finished working project into one plain delivery folder and back.
         使用说明.md
         演讲稿.md              notes/total.md
         幻灯片页面/            svg_output/
-        设计规范/              design_spec.md, spec_lock.md, animations.json
+        设计规范/              design_spec.md, spec_lock.md, animations.json,
+                               page_copy.md, plus_run.json
         图标/  图片/  原始资料/  模板/  资料分析/   (only when non-empty)
 
 Everything else in the working project (backup/, svg_final/, split notes,
@@ -57,7 +58,8 @@ DIR_MAP = {
     "analysis": "资料分析",
 }
 SPEC_DIR = "设计规范"
-SPEC_FILES = ("design_spec.md", "spec_lock.md", "animations.json")
+SPEC_FILES = ("design_spec.md", "spec_lock.md", "animations.json", "page_copy.md", "plus_run.json")
+PLUS_RECORD = "plus_run.json"
 
 # Directories an initialized project carries (project_manager init).
 SKELETON = ("svg_output", "svg_final", "images", "icons", "notes", "templates",
@@ -85,7 +87,7 @@ def _safe_title(title: str) -> str:
 def _guide(title: str, kept: list[str]) -> str:
     rows = {
         "幻灯片页面": "每一页幻灯片的 SVG 源文件，改版式、改文字都在这里",
-        SPEC_DIR: "配色、字体、字号和每页规划（design_spec.md / spec_lock.md），动画设置（animations.json）",
+        SPEC_DIR: "配色、字体、字号和每页规划（design_spec.md / spec_lock.md），逐页文案（page_copy.md），动画设置（animations.json）",
         "图标": "页面里用到的图标",
         "图片": "页面里用到的图片",
         "原始资料": "最初提供的大纲、文档等资料",
@@ -271,6 +273,13 @@ def unpack(args: argparse.Namespace) -> int:
         shutil.copy2(notes, project / "notes" / "total.md")
     if manifest.get("readme"):
         (project / "README.md").write_text(manifest["readme"], encoding="utf-8")
+    if not (project / PLUS_RECORD).is_file():
+        # A delivery packed before the Plus run record: the revision round
+        # re-exports a deck the user already signed off.
+        record = {"format": 1, "entry": "full", "route": "revision",
+                  "from_delivery": str(delivery)}
+        (project / PLUS_RECORD).write_text(json.dumps(record, ensure_ascii=False, indent=2) + "\n",
+                                           encoding="utf-8")
 
     print(f"[UNPACK] {project}")
     print("  next: edit, rerun the final quality gate, 7.1-7.3, then deliver.py pack again")
