@@ -1,0 +1,1 @@
+../ppt-master/SKILL.md
