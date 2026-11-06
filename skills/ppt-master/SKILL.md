@@ -40,21 +40,23 @@ use CWD, or assume a repo checkout. If unavailable, ask; never search or guess.
    authority.
 5. Read only the resulting runtime authority and its explicitly triggered
    supporting documents.
+6. **Plus** — for Generate PPTX, read
+   [`workflows/stages/plus-intake.md`](workflows/stages/plus-intake.md) before
+   step 5's authority and ask its opening questions (Image to PPTX: §6 only). Quick for ordinary or
+   Beautify requests exists only as the user-invoked `ppt-master-flash` Skill.
 
 | Selected route / profile | Runtime authority |
 |---|---|
 | Generate PPTX — Image to PPTX | [`workflows/profiles/image-to-pptx.md`](workflows/profiles/image-to-pptx.md); vision host, always Quick |
-| Generate PPTX — Beautify | [`workflows/profiles/beautify-pptx.md`](workflows/profiles/beautify-pptx.md); explicit Quick intent selects Quick, otherwise Default |
+| Generate PPTX — Beautify | [`workflows/profiles/beautify-pptx.md`](workflows/profiles/beautify-pptx.md); always Default |
 | Generate PPTX — ordinary Default | [`workflows/generate-pptx.md`](workflows/generate-pptx.md) |
-| Generate PPTX — ordinary explicit Quick | [`workflows/profiles/quick-generate.md`](workflows/profiles/quick-generate.md) |
 | Create Template | [`workflows/create-template.md`](workflows/create-template.md) |
 | Edit Native PPTX | [`workflows/edit-native-pptx.md`](workflows/edit-native-pptx.md) |
 
 **Hard rule — selected authority only**: Do not load another top-level route's
 procedure after routing. Image to PPTX and Beautify are mutually exclusive;
-Image to PPTX activates Quick, while Beautify selects from explicit Quick
-intent. Never load both runtimes. Supporting documents refine one route; they
-never compete with it.
+Image to PPTX activates Quick; Beautify runs Default. Never load both
+runtimes. Supporting documents refine one route; they never compete with it.
 
 ---
 

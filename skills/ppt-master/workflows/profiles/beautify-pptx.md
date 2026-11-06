@@ -8,7 +8,7 @@ description: Generate profile for 1:1, content-faithful re-layout of an existing
 
 **Trigger**: the user supplies a `.pptx` and asks, in any language, to beautify or re-layout it while keeping the content — explicit intent plus a provided file, never inferred.
 
-**Hard rule — select one runtime before continuing**: when the request also meets [`quick-generate.md`](./quick-generate.md)'s explicit trigger, load that runtime and not `generate-pptx.md`; otherwise load [`generate-pptx.md`](../generate-pptx.md) and not Quick. The 1:1 constraints below apply in either runtime.
+**Hard rule — select one runtime before continuing**: under `ppt-master` load [`generate-pptx.md`](../generate-pptx.md) and never Quick; under `ppt-master-flash` take the Quick branch through [`quick-generate.md`](./quick-generate.md) and never `generate-pptx.md`. The 1:1 constraints below apply in either runtime.
 
 ---
 
