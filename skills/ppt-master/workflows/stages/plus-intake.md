@@ -34,6 +34,8 @@ description: Plus 开工流程——必问问题、逐页文案确认、开工�
 
 **专业问题（按需 0–4 个，在 Stage 2 之前）**：题材视觉空间大或用户在意设计时追加，例如版式节奏、贯穿全篇的视觉母题、图片处理方式、数据呈现方式。每题先说选不同答案页面会怎么变，再给推荐和理由；能给色块、字体或构图小样就给。用户可以回“你定”。
 
+**字体必须单独确认**：Stage 2 的三套方案里，字体按 [`user-preferences.md`](../../references/user-preferences.md) §6 给出真实字体名和渲染小样，不能三套都写微软雅黑。
+
 ## 3. 开工记录
 
 Step 1 转换资料时一律加 `-o projects/<slug>_intake/`，不把转换结果写到用户文件旁边；Step 2 建好项目、导入资料后立刻记录：
@@ -64,7 +66,7 @@ python3 ${SKILL_DIR}/scripts/plus_run.py confirm-copy <project_path>
 
 ## 5. AI 生图（`ai_images: yes`）
 
-Stage 2 图片来源包含 `ai`，获取路径用原版 `auto`；怎么画按 [`user-preferences.md`](../../references/user-preferences.md) §7。用户选了 `no` 就不推荐 `ai`。
+Stage 2 图片来源包含 `ai`，获取路径用原版 `auto`；怎么画按 [`user-preferences.md`](../../references/user-preferences.md) §8。用户选了 `no` 就不推荐 `ai`。
 
 ## 6. 图片转 PPT
 
